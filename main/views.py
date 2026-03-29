@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def index(request):
+    title = 'Gallery'
+    ctx = {'title': title}
+    return render(request, 'main/index.html', context=ctx)
