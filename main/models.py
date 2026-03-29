@@ -54,6 +54,11 @@ class Artwork(Basic, BaseModelPublished, BaseModelOrderby):
         on_delete=models.PROTECT,
         verbose_name=_('Категория')
     )
+    technique = models.ForeignKey(
+        'Technique',
+        on_delete=models.PROTECT,
+        verbose_name=_('Техника исполнения')
+    )
 
     def __str__(self):
         return self.title
@@ -76,6 +81,21 @@ class Category(Basic, BaseModelPublished, BaseModelOrderby):
     class Meta:
         verbose_name = _('Категория')
         verbose_name_plural = _('Категории')
+
+
+class Technique(Basic, BaseModelPublished, BaseModelOrderby):
+    title = models.CharField(
+        max_length=255,
+        db_index=True,
+        verbose_name=_('Название')
+    )
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = _('Техника исполнения')
+        verbose_name_plural = _('Техники исполнения')
 
 
 phone_validator = RegexValidator(

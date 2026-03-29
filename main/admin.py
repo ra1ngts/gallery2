@@ -7,6 +7,7 @@ from tabbed_admin import TabbedModelAdmin
 from .models import (
     Artwork,
     Category,
+    Technique,
     Profile,
     ArtworkImage,
 )
@@ -25,7 +26,8 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
         'id',
         'title',
         'image',
-        'category'
+        'category',
+        'technique'
     )
     list_display_links = (
         'id',
@@ -37,6 +39,7 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
             'fields': (
                 'title_ru', 'title_en',
                 'category_ru', 'category_en',
+                'technique_ru', 'technique_en'
             )
         }),
     )
@@ -47,7 +50,7 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
 
     tabs = [
         (_('Данные работы'), tab_main),
-        (_('Изображения'), tab_image),
+        (_('Изображения'), tab_image)
     ]
 
     group_fieldsets = True
@@ -56,15 +59,33 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
         js = (
             'https://ajax.googleapis.com',
             'https://ajax.googleapis.com',
-            'modeltranslation/js/tabbed_translation_fields.js',
+            'modeltranslation/js/tabbed_translation_fields.js'
         )
         css = {
-            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',)
         }
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'title',
+        'created_at',
+        'updated_at'
+    )
+    list_display_links = (
+        'id',
+        'title'
+    )
+    list_filter = (
+        'title',
+    )
+    ordering = ('order_by',)
+
+
+@admin.register(Technique)
+class TechniqueAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'title',
@@ -123,7 +144,7 @@ class ProfileAdmin(TranslationAdmin, TabbedModelAdmin):
 
     tabs = [
         (_('Личные данные'), tab_main),
-        (_('Контактные данные'), tab_contacts),
+        (_('Контактные данные'), tab_contacts)
     ]
 
     group_fieldsets = True
@@ -132,8 +153,8 @@ class ProfileAdmin(TranslationAdmin, TabbedModelAdmin):
         js = (
             'https://ajax.googleapis.com',
             'https://ajax.googleapis.com',
-            'modeltranslation/js/tabbed_translation_fields.js',
+            'modeltranslation/js/tabbed_translation_fields.js'
         )
         css = {
-            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',)
         }
