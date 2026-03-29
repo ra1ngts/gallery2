@@ -1,10 +1,10 @@
 from modeltranslation.translator import register, TranslationOptions
 
-from .models import Gallery, Category, Profile
+from .models import Artwork, Category, Profile
 
 
-@register(Gallery)
-class GalleryTranslationOptions(TranslationOptions):
+@register(Artwork)
+class ArtworkTranslationOptions(TranslationOptions):
     fields = ('title', 'category')
 
 @register(Category)

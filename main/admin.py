@@ -5,21 +5,21 @@ from modeltranslation.admin import TranslationAdmin
 from tabbed_admin import TabbedModelAdmin
 
 from .models import (
-    Gallery,
+    Artwork,
     Category,
     Profile,
-    GalleryImage,
+    ArtworkImage,
 )
 
 
-class GalleryImageInline(admin.StackedInline):
-    model = GalleryImage
+class ArtworkImageInline(admin.StackedInline):
+    model = ArtworkImage
     extra = 1
 
 
-@admin.register(Gallery)
-class GalleryAdmin(TranslationAdmin, TabbedModelAdmin):
-    inlines = [GalleryImageInline]
+@admin.register(Artwork)
+class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
+    inlines = [ArtworkImageInline]
 
     list_display = (
         'id',
@@ -42,7 +42,7 @@ class GalleryAdmin(TranslationAdmin, TabbedModelAdmin):
     )
 
     tab_image = (
-        GalleryImageInline,
+        ArtworkImageInline,
     )
 
     tabs = [

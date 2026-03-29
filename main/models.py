@@ -40,7 +40,7 @@ class BaseModelOrderby(models.Model):
         abstract = True
 
 
-class Gallery(Basic, BaseModelPublished, BaseModelOrderby):
+class Artwork(Basic, BaseModelPublished, BaseModelOrderby):
     title = models.CharField(max_length=255, verbose_name=_('Название'))
     image = FilerImageField(
         null=True,
@@ -59,8 +59,8 @@ class Gallery(Basic, BaseModelPublished, BaseModelOrderby):
         return self.title
 
     class Meta:
-        verbose_name = _('Галерея')
-        verbose_name_plural = _('Галереи')
+        verbose_name = _('Работа')
+        verbose_name_plural = _('Работы')
 
 
 class Category(Basic, BaseModelPublished, BaseModelOrderby):
@@ -168,9 +168,9 @@ class Profile(Basic, BaseModelPublished, BaseModelOrderby):
         verbose_name_plural = _('Личная информация')
 
 
-class GalleryImage(Basic, BaseModelPublished):
-    gallery = models.ForeignKey(
-        Gallery,
+class ArtworkImage(Basic, BaseModelPublished):
+    artwork = models.ForeignKey(
+        Artwork,
         related_name='images',
         on_delete=models.CASCADE,
     )
@@ -183,14 +183,14 @@ class GalleryImage(Basic, BaseModelPublished):
 
     def __str__(self):
         if not self.id:
-            return f'Новое изображение для {self.gallery.title}'
+            return f'Новое изображение для {self.artwork.title}'
 
-        ids = list(self.gallery.images.values_list('id', flat=True))
+        ids = list(self.artwork.images.values_list('id', flat=True))
         index = ids.index(self.id) + 1 if ids else None
 
-        return f'{index} для {self.gallery.title}'
+        return f'{index} для {self.artwork.title}'
 
     class Meta:
         ordering = ['created_at']
-        verbose_name = _('Работа')
-        verbose_name_plural = _('Галерея работ')
+        verbose_name = _('Художественная работа')
+        verbose_name_plural = _('Художественные работы')
