@@ -95,6 +95,9 @@ class Category(Basic, BaseModelPublished, BaseModelOrderby):
         db_index=True,
         verbose_name=_('Название')
     )
+    slug = models.SlugField(
+        unique=True,
+    )
 
     def __str__(self):
         return self.title
@@ -109,6 +112,9 @@ class Technique(Basic, BaseModelPublished, BaseModelOrderby):
         max_length=255,
         db_index=True,
         verbose_name=_('Название')
+    )
+    slug = models.SlugField(
+        unique=True,
     )
 
     def __str__(self):

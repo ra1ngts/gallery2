@@ -85,6 +85,9 @@ class CategoryAdmin(TranslationAdmin):
     list_filter = (
         'title',
     )
+
+    prepopulated_fields = {'slug': ('title_en',)}
+
     ordering = ('order_by',)
 
 
@@ -103,6 +106,9 @@ class TechniqueAdmin(TranslationAdmin):
     list_filter = (
         'title',
     )
+
+    prepopulated_fields = {'slug': ('title_en',)}
+
     ordering = ('order_by',)
 
 
