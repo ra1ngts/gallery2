@@ -5,7 +5,7 @@ from .models import Artwork, Category, Technique, Profile
 
 @register(Artwork)
 class ArtworkTranslationOptions(TranslationOptions):
-    fields = ('title', 'category', 'technique')
+    fields = ('title', 'description')
 
 @register(Category)
 class CategoryTranslationOptions(TranslationOptions):
