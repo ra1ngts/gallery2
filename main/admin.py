@@ -25,6 +25,7 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
     list_display = (
         'id',
         'title',
+        'year',
         'image',
         'category',
         'technique'
@@ -37,9 +38,13 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
     tab_main = (
         (None, {
             'fields': (
+                'is_published',
+                'order_by',
                 'title_ru', 'title_en',
-                'category_ru', 'category_en',
-                'technique_ru', 'technique_en'
+                'description_ru', 'description_en',
+                'year',
+                'category',
+                'technique'
             )
         }),
     )
@@ -49,7 +54,7 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
     )
 
     tabs = [
-        (_('Данные работы'), tab_main),
+        (_('Информация о работе'), tab_main),
         (_('Изображения'), tab_image)
     ]
 
@@ -57,7 +62,6 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
 
     class Media:
         js = (
-            'https://ajax.googleapis.com',
             'https://ajax.googleapis.com',
             'modeltranslation/js/tabbed_translation_fields.js'
         )
@@ -67,7 +71,7 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     list_display = (
         'id',
         'title',
@@ -85,7 +89,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(Technique)
-class TechniqueAdmin(admin.ModelAdmin):
+class TechniqueAdmin(TranslationAdmin):
     list_display = (
         'id',
         'title',
@@ -121,6 +125,8 @@ class ProfileAdmin(TranslationAdmin, TabbedModelAdmin):
     tab_main = (
         (None, {
             'fields': (
+                'is_published',
+                'order_by',
                 'name_ru', 'name_en',
                 'lastname_ru', 'lastname_en',
                 'image',
@@ -151,7 +157,6 @@ class ProfileAdmin(TranslationAdmin, TabbedModelAdmin):
 
     class Media:
         js = (
-            'https://ajax.googleapis.com',
             'https://ajax.googleapis.com',
             'modeltranslation/js/tabbed_translation_fields.js'
         )
