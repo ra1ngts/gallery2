@@ -1,4 +1,10 @@
-from django.core.validators import RegexValidator
+import datetime
+
+from django.core.validators import (
+    RegexValidator,
+    MinValueValidator,
+    MaxValueValidator
+)
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -41,7 +47,22 @@ class BaseModelOrderby(models.Model):
 
 
 class Artwork(Basic, BaseModelPublished, BaseModelOrderby):
-    title = models.CharField(max_length=255, verbose_name=_('Название'))
+    title = models.CharField(
+        max_length=255,
+        verbose_name=_('Название')
+    )
+    description = models.TextField(
+        help_text=_('Введите описание работы'),
+        verbose_name=_('Описание работы')
+    )
+    year = models.PositiveSmallIntegerField(
+        validators=[
+            MinValueValidator(1900),
+            MaxValueValidator(datetime.datetime.now().year),
+        ],
+        help_text=_('Введите год создания работы'),
+        verbose_name=_('Год создания работы')
+    )
     image = FilerImageField(
         null=True,
         blank=True,
