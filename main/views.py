@@ -53,7 +53,7 @@ def ResultEncoder(obj):
 
 
 def index(request):
-    category_slug = request.GET.get('category')
+    # category_slug = request.GET.get('category')
 
     # qs = Artwork.objects.select_related('category', 'technique', 'image').filter(
     #     is_published=True
