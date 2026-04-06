@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from modeltranslation.admin import TranslationAdmin
 
@@ -26,7 +27,7 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
         'id',
         'title',
         'year',
-        'image',
+        'get_image',
         'category',
         'technique'
     )
@@ -34,6 +35,17 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
         'id',
         'title'
     )
+
+    def get_image(self, obj):
+        first_image = obj.images.first()
+        if first_image and first_image.image:
+            return mark_safe(f'<img src="{first_image.image.url}" width="60" style="border-radius: 5px;"/>')
+        return '-'
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('images')
+
+    get_image.short_description = _('Изображение')
 
     tab_main = (
         (None, {
