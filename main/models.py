@@ -73,11 +73,13 @@ class Artwork(Basic, BaseModelPublished, BaseModelOrderby):
     category = models.ForeignKey(
         'Category',
         on_delete=models.PROTECT,
+        related_name='artworks_categories',
         verbose_name=_('Категория')
     )
     technique = models.ForeignKey(
         'Technique',
         on_delete=models.PROTECT,
+        related_name='artwork_techniques',
         verbose_name=_('Техника исполнения')
     )
 
@@ -229,13 +231,7 @@ class ArtworkImage(Basic, BaseModelPublished):
     )
 
     def __str__(self):
-        if not self.id:
-            return f'Новое изображение для {self.artwork.title}'
-
-        ids = list(self.artwork.images.values_list('id', flat=True))
-        index = ids.index(self.id) + 1 if ids else None
-
-        return f'{index} для {self.artwork.title}'
+        return f'Изображение для {self.artwork.title} (ID: {self.id})'
 
     class Meta:
         ordering = ['created_at']
