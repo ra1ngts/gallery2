@@ -1,4 +1,6 @@
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext_lazy as _
 
 from .models import (
     Artwork,
@@ -53,25 +55,32 @@ def ResultEncoder(obj):
 
 
 def index(request):
-    # category_slug = request.GET.get('category')
-
-    # qs = Artwork.objects.select_related('category', 'technique', 'image').filter(
-    #     is_published=True
-    # )
-
-    qs = Artwork.objects.select_related('category', 'technique').prefetch_related('images').filter(
-        is_published=True
-    )
-
     ctx = {
-        'title': 'Gallery',
-        'artworks': [ResultEncoder(artwork) for artwork in qs],
-        # 'artworks': [ResultEncoder(artwork) for artwork in qs.filter(
-        #     category__title=category_slug,
-        # )]
+        'title': _('Галерея'),
+        'artworks': [
+            ResultEncoder(artwork) for artwork in Artwork.objects.select_related(
+                'category',
+                'technique'
+            ).prefetch_related('images').filter(is_published=True)
+        ]
     }
 
     return JsonResponse({
         'status': 'success',
         'ctx': ctx
+    })
+
+
+def category(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+
+    return JsonResponse({
+        'status': 'success',
+        'title': category.title,
+        'artworks': [
+            ResultEncoder(artwork) for artwork in Artwork.objects.select_related(
+                'category',
+                'image'
+            ).prefetch_related('technique').filter(is_published=True, category=category)
+        ]
     })
