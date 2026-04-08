@@ -74,8 +74,7 @@ def index(request):
 def category(request, slug):
     category = get_object_or_404(Category, slug=slug)
 
-    return JsonResponse({
-        'status': 'success',
+    ctx = {
         'title': category.title,
         'artworks': [
             ResultEncoder(artwork) for artwork in Artwork.objects.select_related(
@@ -83,4 +82,9 @@ def category(request, slug):
                 'image'
             ).prefetch_related('technique').filter(is_published=True, category=category)
         ]
+    }
+
+    return JsonResponse({
+        'status': 'success',
+        'ctx': ctx
     })
