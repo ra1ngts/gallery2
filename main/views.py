@@ -1,13 +1,17 @@
+import os
+
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.utils.translation import gettext_lazy as _
 
+from gallery2 import settings
 from .models import (
     Artwork,
     Category,
     Technique,
     Profile
 )
+from .utils import get_svelte_manifest
 
 
 def ResultEncoder(obj):
@@ -55,20 +59,42 @@ def ResultEncoder(obj):
 
 
 def index(request):
+    if request.headers.get('Accept') == 'application/json':
+        try:
+            return JsonResponse({
+                'status': 'success',
+                'title': _('Галерея'),
+                'artworks': [
+                    ResultEncoder(artwork) for artwork in Artwork.objects.select_related(
+                        'category',
+                        'technique'
+                    ).prefetch_related('images').filter(is_published=True)
+                ]
+            })
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            })
+
+    manifest = get_svelte_manifest(
+        os.path.join(
+            settings.BASE_DIR,
+            'main',
+            'static',
+            'svelte',
+            'assets',
+            '.vite'
+        )
+    ).get('index.html', {})
+
     ctx = {
-        'title': _('Галерея'),
-        'artworks': [
-            ResultEncoder(artwork) for artwork in Artwork.objects.select_related(
-                'category',
-                'technique'
-            ).prefetch_related('images').filter(is_published=True)
-        ]
+        'site_key': settings.RECAPTCHA_PUBLIC_KEY,
+        'manifest_css': manifest.get('css', []),
+        'manifest_js': manifest.get('file', '')
     }
 
-    return JsonResponse({
-        'status': 'success',
-        'ctx': ctx
-    })
+    return render(request, 'main/index.html', ctx)
 
 
 def category(request, slug):

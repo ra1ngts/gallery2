@@ -1,9 +1,15 @@
 import { mount } from 'svelte'
 import './app.css'
-import App from './App.svelte'
+import App from './lib/components/App.svelte'
 
-const app = mount(App, {
-  target: document.getElementById('app'),
-})
+//Target
+const appTarget = document.getElementById('app');
+const instances = {};
 
-export default app
+if (appTarget) {
+  instances.app = mount(App, { target: appTarget });
+} else {
+  console.warn('#app not found');
+}
+
+export default instances;
