@@ -73,3 +73,41 @@
     max-width: 1367px;
   }
 }
+
+.swiper-horizontal .swiper-button-prev {
+  left: -10px !important;
+}
+
+.swiper-horizontal .swiper-button-next {
+  right: -10px !important;
+}
+
+:is(.swiper-button-prev,.swiper-button-next).swiper-button-disabled {
+  opacity: 0 !important;
+}
+
+.swiper-button-prev, 
+.swiper-button-next {
+  color: var(--color-purple-500) !important;
+}
+
+.swiper-pagination-bullet {
+  background: var(--color-purple-500) !important;
+  opacity: 0.5 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--color-purple-500) !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-fraction, 
+.swiper-pagination-custom, 
+.swiper-horizontal>.swiper-pagination-bullets, 
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
