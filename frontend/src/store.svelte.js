@@ -2,7 +2,6 @@
 export const stateCtx = $state({
     profile: {},
     artworks: [],
-    categories: [],
     form: {},
     translation: {},
     contactsData: {
