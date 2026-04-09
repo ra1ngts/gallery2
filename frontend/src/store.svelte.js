@@ -1,23 +1,13 @@
 // stateCtx
 export const stateCtx = $state({
-    profile: {},
     artworks: [],
-    form: {},
-    translation: {},
-    contactsData: {
-        name: '',
-        subject: '',
-        message: '',
-        email: ''
-    },
-    isSubmitting: false,
-    formErrors: {},
-    touchedFields: {},
-    toast: {
-        show: false,
-        message: '',
-        type: 'success'
-    },
+    menu: [
+        {id: 'main', title: 'Main'},
+        {id: 'category', title: 'Category'},
+        {id: 'about', title: 'About'},
+        {id: 'contact', title: 'Contact'}
+    ],
+    activeMenu: 'main'
 });
 
 // export const contactForm = (recaptcha_token = null) => {
