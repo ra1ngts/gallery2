@@ -18,7 +18,6 @@
       }
 
       if (data.status === 'success') {
-        console.log('data', data);
         stateCtx.artworks = data.artworks;
         console.log('index (GET) successfully sending:', data);
       } else {
@@ -34,6 +33,6 @@
   });
 </script>
 
-<div style="background-color: aquamarine;">
-  Test 22
+<div class="container">
+  Test 2
 </div>
