@@ -48,7 +48,7 @@
 
   body {
     font-family: var(--font-roboto);
-    @apply antialiased bg-linear-to-t from-gray-950 to-gray-900 text-gray-500;
+    @apply antialiased bg-linear-to-t from-black to-gray-950 text-gray-500;
   }
 }
 
@@ -59,4 +59,17 @@
   padding-right: 15px;
   margin-left: auto;
   margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1367px;
+  }
 }
