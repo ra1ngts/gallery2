@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { stateCtx } from '../../store.svelte';
+  import Main from './Main.svelte';
 
   const getCtx = async () => {
     try {
@@ -60,7 +61,9 @@
 </div>
 
 <div class="container pt-20">
-  <div class="py2">Test 1</div>
+  <div class="py2">
+    <Main />
+  </div>
 
   <div class="flex py-4 items-center justify-center text-gray-800 gap-2 transition-colors duration-300 group">
     <a
