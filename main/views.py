@@ -69,7 +69,8 @@ def index(request):
                         'category',
                         'technique'
                     ).prefetch_related('images').filter(is_published=True)
-                ]
+                ],
+                'categories': list(Category.objects.values('slug', 'title')),
             })
         except Exception as e:
             return JsonResponse({
@@ -100,17 +101,13 @@ def index(request):
 def category(request, slug):
     category = get_object_or_404(Category, slug=slug)
 
-    ctx = {
+    return JsonResponse({
+        'status': 'success',
         'title': category.title,
         'artworks': [
             ResultEncoder(artwork) for artwork in Artwork.objects.select_related(
                 'category',
                 'image'
             ).prefetch_related('technique').filter(is_published=True, category=category)
-        ]
-    }
-
-    return JsonResponse({
-        'status': 'success',
-        'ctx': ctx
+        ],
     })
