@@ -3,6 +3,7 @@ export const stateCtx = $state({
     artworks: [],
     categories: [],
     page: 'main',
+    categorySlug: null,
     pages: {
         main: 'main',
         category: 'category',
