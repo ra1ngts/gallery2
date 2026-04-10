@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { fly } from 'svelte/transition';
   import { stateCtx } from '../../store.svelte';
 
   import Main from './Main.svelte';
@@ -42,6 +43,10 @@
 
   const goToCategory = () => {
     isCategoryOpen = !isCategoryOpen;
+  };
+
+  const closeGoToCategory = () => {
+    isCategoryOpen = false;
   };
 
   const routeChoice = (route) => {
@@ -92,6 +97,8 @@
   });
 </script>
 
+<svelte:window onclick={closeGoToCategory} />
+
 <div class="fixed top-0 z-100 w-full bg-linear-to-b from-gray-950/90 to-purple-950/40 backdrop-blur-md">
   <div class="container p-4">
     <nav class="flex justify-between items-center gap-2 overflow-visible">
@@ -115,10 +122,13 @@
               ? 'text-purple-500'
               : 'text-gray-500 cursor-pointer'}"
           >
-            <div class="relative inline-block">
+            <div class="relative inline-block" onclick={(e) => e.stopPropagation()} aria-hidden="true">
               <button onclick={goToCategory}>{item.title}</button>
               {#if isCategoryOpen}
-                <div class="absolute left-1/2 -translate-x-1/2 mt-5 p-4 bg-gray-900 rounded-2xl">
+                <div
+                  transition:fly={{ y: -10, duration: 300 }}
+                  class="absolute left-1/2 -translate-x-1/2 mt-5 p-4 bg-gray-900 rounded-3xl shadow-purple-500/50 shadow-2xl"
+                >
                   {#each stateCtx.categories as category}
                     <div>
                       <button
