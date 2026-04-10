@@ -17,10 +17,9 @@
     const swiperArtworks = new Swiper(swiperObj, {
       modules: [Navigation, Pagination, Mousewheel],
       slidesPerView: 3,
-      spaceBetween: 16,
       watchOverflow: true,
       loop: false,
-      mousewheel: true,
+      // mousewheel: true,
       pagination: {
         el: swiperObj.closest('.art-work').querySelector('.swiper-pagination-artworks'),
         clickable: true,
@@ -32,7 +31,6 @@
       breakpoints: {
         320: {
           slidesPerView: 1,
-          spaceBetween: 16,
           navigation: {
             enabled: false,
           },
@@ -42,7 +40,6 @@
         },
         640: {
           slidesPerView: 2,
-          spaceBetween: 16,
           navigation: {
             enabled: false,
           },
@@ -52,7 +49,6 @@
         },
         768: {
           slidesPerView: 3,
-          spaceBetween: 16,
           navigation: {
             enabled: false,
           },
@@ -62,7 +58,6 @@
         },
         1024: {
           slidesPerView: 3,
-          spaceBetween: 16,
           navigation: {
             enabled: true,
           },
@@ -101,13 +96,13 @@
     };
   }
 
-  function swiperCategories(arr) {
+  function getCategories(arr) {
     const idCategories = [...new Set(arr.map((obj) => obj.category.id))];
     // console.log('idCategories', idCategories);
     return idCategories;
   }
 
-  const availableCategories = $derived(swiperCategories(stateCtx.artworks));
+  const availableCategories = $derived(getCategories(stateCtx.artworks));
 </script>
 
 {#each availableCategories as catId}
@@ -115,17 +110,17 @@
     <div class="swiper" use:swiperCreation>
       <div class="swiper-wrapper">
         {#each stateCtx.artworks.filter((a) => a.category.id === catId) as artwork}
-          <div class="swiper-slide">
+          <div class="swiper-slide pb-4">
             <div
-              class="group h-full flex flex-col gap-4 px-4 lg:px-10 py-4 rounded-2xl transition-all duration-300 bg-white/5 shadow-2xl backdrop-blur-md hover:bg-white/5 lg:bg-transparent lg:hover:backdrop-blur-md
-                lg:hover:shadow-2xl lg:hover:shadow-cyan-950/20"
+              class="h-full flex flex-col p-4 lg:p-8 rounded-3xl transition-all duration-300 bg-purple-500/5 shadow-2xl backdrop-blur-md hover:bg-purple-500/15 lg:bg-transparent lg:hover:backdrop-blur-md
+                lg:hover:shadow-2xl lg:hover:shadow-pink-500/30"
             >
-              <div class="h-80 overflow-hidden rounded-2xl bg-white">
+              <div class="h-80 overflow-hidden rounded-2xl">
                 <a href={artwork.image} data-fancybox="artwork-{artwork.id}">
                   <img
                     src={artwork.image}
                     alt={artwork.name}
-                    class="w-full h-full object-cover cursor-pointer opacity-100 lg:opacity-90 lg:group-hover:opacity-100 transition-opacity duration-300"
+                    class="w-full h-full object-cover cursor-pointer scale-100 transition-transform duration-300 ease-in-out hover:rotate-3 hover:scale-110"
                   />
                 </a>
               </div>
