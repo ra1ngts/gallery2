@@ -2,15 +2,16 @@
 export const stateCtx = $state({
     artworks: [],
     categories: [],
-    page: '',
+    page: 'main',
     pages: {
-        loading: 'loading',
         main: 'main',
         category: 'category',
-        contact: 'contact'
+        contact: 'contact',
+        loading: 'loading'
     },
-    menu: {
-        main: 'Main',
-        category: 'Category',
-    }
+    menu: [
+        {id: 'main', title: 'Main'},
+        {id: 'category', title: 'Category'},
+        {id: 'contact', title: 'Contact'}
+    ]
 });
