@@ -50,7 +50,11 @@
 
     if (route.page === stateCtx.pages.category) {
       console.log('category route', route.page === stateCtx.pages.category);
+      stateCtx.categorySlug = route.slug;
+      console.log('category slug', route.slug);
       getCategory(route.slug);
+    } else {
+      stateCtx.categorySlug = null;
     }
   };
 
@@ -93,15 +97,14 @@
     <nav class="flex justify-between items-center gap-2 overflow-visible">
       {#each stateCtx.menu as item}
         {#if item.id !== 'category'}
-          <div
-            class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.page ===
-            item.id
-              ? 'text-purple-500'
-              : 'text-gray-500 cursor-pointer'}"
-          >
-            <div class="flex gap-2 relative">
-              <button onclick={() => routeChoice({ page: item.id })}>{item.title}</button>
-            </div>
+          <div class="flex gap-2 relative">
+            <button
+              class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.page ===
+              item.id
+                ? 'text-purple-500'
+                : 'text-gray-500 cursor-pointer'}"
+              onclick={() => routeChoice({ page: item.id })}>{item.title}</button
+            >
           </div>
         {/if}
 
@@ -118,8 +121,12 @@
                 <div class="absolute left-1/2 -translate-x-1/2 mt-5 p-4 bg-gray-900 rounded-2xl">
                   {#each stateCtx.categories as category}
                     <div>
-                      <button onclick={() => routeChoice({ page: item.id, slug: category.slug })}
-                        >{category.title}</button
+                      <button
+                        class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
+                        category.slug
+                          ? 'text-purple-500'
+                          : 'text-gray-500 cursor-pointer'}"
+                        onclick={() => routeChoice({ page: item.id, slug: category.slug })}>{category.title}</button
                       >
                     </div>
                   {/each}
