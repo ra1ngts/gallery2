@@ -1,8 +1,10 @@
 <script>
   import { onMount } from 'svelte';
   import { stateCtx } from '../../store.svelte';
+
   import Main from './Main.svelte';
   import Category from './Category.svelte';
+  import Contact from './Contact.svelte';
   import Loader from './Loader.svelte';
 
   const getMain = async () => {
@@ -36,8 +38,20 @@
     }
   };
 
-  const goToMain = () => {
-    stateCtx.page = stateCtx.pages.main;
+  let isCategoryOpen = $state(false);
+
+  const goToCategory = () => {
+    isCategoryOpen = !isCategoryOpen;
+  };
+
+  const routeChoice = (route) => {
+    stateCtx.page = route.page;
+    console.log(route.page);
+
+    if (route.page === stateCtx.pages.category) {
+      console.log('category route', route.page === stateCtx.pages.category);
+      getCategory(route.slug);
+    }
   };
 
   const getCategory = async (slug) => {
@@ -76,25 +90,45 @@
 
 <div class="fixed top-0 z-100 w-full bg-linear-to-b from-gray-950/90 to-purple-950/40 backdrop-blur-md">
   <div class="container p-4">
-    <nav class="flex justify-between items-center gap-2 overflow-x-auto no-scrollbar">
-      <div class="text-white">
-        <button onclick={goToMain}>main</button>
+    <nav class="flex justify-between items-center gap-2 overflow-visible">
+      {#each stateCtx.menu as item}
+        {#if item.id !== 'category'}
+          <div
+            class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.page ===
+            item.id
+              ? 'text-purple-500'
+              : 'text-gray-500 cursor-pointer'}"
+          >
+            <div class="flex gap-2 relative">
+              <button onclick={() => routeChoice({ page: item.id })}>{item.title}</button>
+            </div>
+          </div>
+        {/if}
 
-        {#each stateCtx.categories as category}
-          <button onclick={() => getCategory(category.slug)}>{category.title}</button>
-        {/each}
-      </div>
-
-      <!-- {#each stateCtx.menu as page}
-        <button
-          class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.menu ===
-          page.id
-            ? 'text-purple-500'
-            : 'text-gray-500 cursor-pointer'}"
-        >
-          {page.title}
-        </button>
-      {/each} -->
+        {#if item.id === 'category'}
+          <div
+            class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.page ===
+            item.id
+              ? 'text-purple-500'
+              : 'text-gray-500 cursor-pointer'}"
+          >
+            <div class="relative inline-block">
+              <button onclick={goToCategory}>{item.title}</button>
+              {#if isCategoryOpen}
+                <div class="absolute left-1/2 -translate-x-1/2 mt-5 p-4 bg-gray-900 rounded-2xl">
+                  {#each stateCtx.categories as category}
+                    <div>
+                      <button onclick={() => routeChoice({ page: item.id, slug: category.slug })}
+                        >{category.title}</button
+                      >
+                    </div>
+                  {/each}
+                </div>
+              {/if}
+            </div>
+          </div>
+        {/if}
+      {/each}
     </nav>
   </div>
 </div>
@@ -104,6 +138,8 @@
     <Main />
   {:else if stateCtx.page === stateCtx.pages.category}
     <Category />
+  {:else if stateCtx.page === stateCtx.pages.contact}
+    <Contact />
   {:else if stateCtx.page === stateCtx.pages.loading}
     <Loader />
   {/if}
