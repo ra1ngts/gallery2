@@ -136,7 +136,8 @@
                         category.slug
                           ? 'text-purple-500'
                           : 'text-gray-500 cursor-pointer'}"
-                        onclick={() => routeChoice({ page: item.id, slug: category.slug })}>{category.title}</button
+                        onclick={() => (routeChoice({ page: item.id, slug: category.slug }), closeGoToCategory())}
+                        >{category.title}</button
                       >
                     </div>
                   {/each}
