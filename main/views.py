@@ -1,5 +1,7 @@
 import os
 
+from django.db.models import Window, F
+from django.db.models.functions import RowNumber
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.translation import gettext_lazy as _
@@ -61,17 +63,26 @@ def ResultEncoder(obj):
 def index(request):
     if request.headers.get('Accept') == 'application/json':
         try:
+            annotated_works = Artwork.objects.filter(is_published=True).annotate(
+                row=Window(
+                    expression=RowNumber(),
+                    partition_by=[F('category_id')],
+                    order_by=F('id')
+                )
+            )
+
+            artworks = Artwork.objects.select_related(
+                'category',
+                'technique'
+            ).prefetch_related('images').filter(id__in=annotated_works.filter(row__lte=4).values('id'))
+
             return JsonResponse({
                 'status': 'success',
                 'title': _('Галерея'),
-                'artworks': [
-                    ResultEncoder(artwork) for artwork in Artwork.objects.select_related(
-                        'category',
-                        'technique'
-                    ).prefetch_related('images').filter(is_published=True)
-                ],
-                'categories': list(Category.objects.values('slug', 'title')),
+                'artworks': [ResultEncoder(artwork) for artwork in artworks],
+                'categories': list(Category.objects.values('slug', 'title'))
             })
+
         except Exception as e:
             return JsonResponse({
                 'status': 'error',
