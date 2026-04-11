@@ -1,6 +1,7 @@
 // stateCtx
 export const stateCtx = $state({
     artworks: [],
+    featuredWork: {},
     categories: [],
     page: 'main',
     categorySlug: null,
