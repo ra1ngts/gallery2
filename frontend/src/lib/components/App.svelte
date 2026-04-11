@@ -152,7 +152,9 @@
 </div>
 
 <div class="container pt-20">
-  <div class="text-2xl font-bold text-amber-600">Test title</div>
+  <div class="text-2xl font-bold text-amber-600">
+    {stateCtx.menu.find((m) => m.id === stateCtx.page)?.title}
+  </div>
   {#if stateCtx.page === stateCtx.pages.main}
     <Main />
   {:else if stateCtx.page === stateCtx.pages.category}
