@@ -129,12 +129,12 @@
             {#if isCategoryOpen}
               <div
                 transition:fly={{ y: -10, duration: 300 }}
-                class="absolute left-1/2 -translate-x-1/2 mt-5 p-4 bg-purple-950/90 backdrop-blur-md rounded-3xl shadow-purple-500/60 shadow-2xl"
+                class="min-w-50 absolute left-1/2 -translate-x-1/2 mt-5 p-4 bg-gray-950/90 backdrop-blur-md rounded-3xl shadow-purple-500/30 shadow-2xl"
               >
                 {#each stateCtx.categories as category}
                   <div>
                     <button
-                      class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
+                      class="w-full transition-colors duration-300 px-3 py-1.5 rounded-2xl hover:bg-purple-950 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
                       category.slug
                         ? 'text-purple-500'
                         : 'text-gray-400 cursor-pointer'}"
