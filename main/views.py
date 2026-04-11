@@ -80,6 +80,7 @@ def index(request):
                 'status': 'success',
                 'title': _('Галерея'),
                 'artworks': [ResultEncoder(artwork) for artwork in artworks],
+                'featured_work': ResultEncoder(Artwork.objects.filter(is_featured=True).first()),
                 'categories': list(Category.objects.values('slug', 'title'))
             })
 
