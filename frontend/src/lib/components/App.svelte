@@ -99,7 +99,7 @@
 
 <svelte:window onclick={closeGoToCategory} />
 
-<div class="fixed top-0 z-100 w-full bg-linear-to-b from-gray-950/90 to-purple-950/40 backdrop-blur-md">
+<div class="fixed top-0 z-100 w-full bg-linear-to-b from-gray-950/90 to-purple-950/60 backdrop-blur-md">
   <div class="container p-4">
     <nav class="flex justify-between items-center gap-2 overflow-visible">
       {#each stateCtx.menu as item}
@@ -109,41 +109,42 @@
               class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.page ===
               item.id
                 ? 'text-purple-500'
-                : 'text-gray-500 cursor-pointer'}"
+                : 'text-gray-400 cursor-pointer'}"
               onclick={() => routeChoice({ page: item.id })}>{item.title}</button
             >
           </div>
         {/if}
 
         {#if item.id === 'category'}
-          <div
-            class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.page ===
-            item.id
-              ? 'text-purple-500'
-              : 'text-gray-500 cursor-pointer'}"
-          >
-            <div class="relative inline-block" onclick={(e) => e.stopPropagation()} aria-hidden="true">
-              <button onclick={goToCategory}>{item.title}</button>
-              {#if isCategoryOpen}
-                <div
-                  transition:fly={{ y: -10, duration: 300 }}
-                  class="absolute left-1/2 -translate-x-1/2 mt-5 p-4 bg-gray-900 rounded-3xl shadow-purple-500/50 shadow-2xl"
-                >
-                  {#each stateCtx.categories as category}
-                    <div>
-                      <button
-                        class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
-                        category.slug
-                          ? 'text-purple-500'
-                          : 'text-gray-500 cursor-pointer'}"
-                        onclick={() => (routeChoice({ page: item.id, slug: category.slug }), closeGoToCategory())}
-                        >{category.title}</button
-                      >
-                    </div>
-                  {/each}
-                </div>
-              {/if}
-            </div>
+          <div class="relative inline-block" onclick={(e) => e.stopPropagation()} aria-hidden="true">
+            <button
+              class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold cursor-pointer {stateCtx.page ===
+              item.id
+                ? 'text-purple-500'
+                : 'text-gray-400'}"
+              onclick={goToCategory}
+            >
+              {item.title}
+            </button>
+            {#if isCategoryOpen}
+              <div
+                transition:fly={{ y: -10, duration: 300 }}
+                class="absolute left-1/2 -translate-x-1/2 mt-5 p-4 bg-purple-950/90 backdrop-blur-md rounded-3xl shadow-purple-500/60 shadow-2xl"
+              >
+                {#each stateCtx.categories as category}
+                  <div>
+                    <button
+                      class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
+                      category.slug
+                        ? 'text-purple-500'
+                        : 'text-gray-400 cursor-pointer'}"
+                      onclick={() => (routeChoice({ page: item.id, slug: category.slug }), closeGoToCategory())}
+                      >{category.title}</button
+                    >
+                  </div>
+                {/each}
+              </div>
+            {/if}
           </div>
         {/if}
       {/each}
