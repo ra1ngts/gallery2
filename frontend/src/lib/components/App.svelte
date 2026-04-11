@@ -27,6 +27,7 @@
 
       if (data.status === 'success') {
         stateCtx.artworks = data.artworks;
+        stateCtx.featuredWork = data.featured_work;
         stateCtx.categories = data.categories;
         stateCtx.page = stateCtx.pages.main;
         console.log('index (GET) successfully sending:', data);
