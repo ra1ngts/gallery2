@@ -105,6 +105,16 @@
   const availableCategories = $derived(getCategories(stateCtx.artworks));
 </script>
 
+<div class="h-100 overflow-hidden rounded-2xl">
+  <a href={stateCtx.featuredWork.image}>
+    <img
+      src={stateCtx.featuredWork.image}
+      alt={stateCtx.featuredWork.title}
+      class="w-full h-full object-cover cursor-pointer scale-100 transition-transform duration-300 ease-in-out hover:rotate-3 hover:scale-110"
+    />
+  </a>
+</div>
+
 {#each availableCategories as catId}
   <div class="pb-4 art-work">
     <div class="swiper" use:swiperCreation>
@@ -119,7 +129,7 @@
                 <a href={artwork.image} data-fancybox="artwork-{artwork.id}">
                   <img
                     src={artwork.image}
-                    alt={artwork.name}
+                    alt={artwork.title}
                     class="w-full h-full object-cover cursor-pointer scale-100 transition-transform duration-300 ease-in-out hover:rotate-3 hover:scale-110"
                   />
                 </a>
