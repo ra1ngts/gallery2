@@ -48,7 +48,7 @@
 
   body {
     font-family: var(--font-roboto);
-    @apply antialiased bg-linear-to-t from-black to-gray-950 text-gray-500;
+    @apply antialiased bg-linear-to-t from-gray-950 to-black text-gray-400;
   }
 }
 
