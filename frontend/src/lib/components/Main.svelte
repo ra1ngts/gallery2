@@ -17,9 +17,9 @@
     const swiperArtworks = new Swiper(swiperObj, {
       modules: [Navigation, Pagination, Mousewheel],
       slidesPerView: 3,
+      spaceBetween: 16,
       watchOverflow: true,
       loop: false,
-      // mousewheel: true,
       pagination: {
         el: swiperObj.closest('.art-work').querySelector('.swiper-pagination-artworks'),
         clickable: true,
@@ -112,8 +112,8 @@
         {#each stateCtx.artworks.filter((a) => a.category.id === catId) as artwork}
           <div class="swiper-slide pb-4">
             <div
-              class="h-full flex flex-col p-4 lg:p-8 rounded-3xl transition-all duration-300 bg-purple-500/5 shadow-2xl backdrop-blur-md hover:bg-purple-500/15 lg:bg-transparent lg:hover:backdrop-blur-md
-                lg:hover:shadow-2xl lg:hover:shadow-pink-500/30"
+              class="h-full flex flex-col p-4 lg:p-8 rounded-3xl transition-all duration-300 bg-purple-950/40 shadow-2xl backdrop-blur-md hover:bg-purple-950/40 lg:bg-transparent lg:hover:backdrop-blur-md
+                lg:hover:shadow-2xl lg:hover:shadow-purple-500/10"
             >
               <div class="h-80 overflow-hidden rounded-2xl">
                 <a href={artwork.image} data-fancybox="artwork-{artwork.id}">
