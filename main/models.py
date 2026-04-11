@@ -82,6 +82,10 @@ class Artwork(Basic, BaseModelPublished, BaseModelOrderby):
         related_name='artwork_techniques',
         verbose_name=_('Техника исполнения')
     )
+    is_featured = models.BooleanField(
+        verbose_name=_('Особенная работа'),
+        default=False
+    )
 
     def __str__(self):
         return self.title
