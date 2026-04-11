@@ -50,6 +50,7 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
     tab_main = (
         (None, {
             'fields': (
+                'is_featured',
                 'is_published',
                 'order_by',
                 'title_ru', 'title_en',
