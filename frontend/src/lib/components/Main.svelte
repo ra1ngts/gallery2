@@ -76,7 +76,7 @@
       }, 100);
     }
 
-    Fancybox.bind("[data-fancybox^='artwork-']", {
+    Fancybox.bind("[data-fancybox^='featured-'], [data-fancybox^='gallery-']", {
       hideScrollbar: true,
       wheel: 'slide',
       backdropClick: 'close',
@@ -105,14 +105,24 @@
   const availableCategories = $derived(getCategories(stateCtx.artworks));
 </script>
 
-<div class="h-100 overflow-hidden rounded-2xl">
-  <a href={stateCtx.featuredWork.image}>
-    <img
-      src={stateCtx.featuredWork.image}
-      alt={stateCtx.featuredWork.title}
-      class="w-full h-full object-cover cursor-pointer scale-100 transition-transform duration-300 ease-in-out hover:rotate-3 hover:scale-110"
-    />
-  </a>
+<div class="overflow-hidden rounded-3xl transition-all duration-300 bg-purple-950/15 hover:bg-purple-950/30">
+  <div class="p-4 items-center text-center font-semibold">
+    {stateCtx.featuredWork.title} ({stateCtx.featuredWork.year})
+  </div>
+
+  <div class="h-170">
+    <a href={stateCtx.featuredWork.image} data-fancybox="featured-{stateCtx.featuredWork.id}">
+      <img
+        src={stateCtx.featuredWork.image}
+        alt={stateCtx.featuredWork.title}
+        class="w-full h-full object-contain cursor-pointer"
+      />
+    </a>
+  </div>
+
+  <div class="p-4 items-center text-center">
+    {stateCtx.featuredWork.description}
+  </div>
 </div>
 
 {#each availableCategories as catId}
@@ -126,7 +136,7 @@
                 lg:hover:shadow-2xl lg:hover:shadow-purple-500/10"
             >
               <div class="h-80 overflow-hidden rounded-2xl">
-                <a href={artwork.image} data-fancybox="artwork-{artwork.id}">
+                <a href={artwork.image} data-fancybox="gallery-{artwork.id}">
                   <img
                     src={artwork.image}
                     alt={artwork.title}
