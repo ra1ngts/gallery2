@@ -105,7 +105,7 @@
     <nav class="grid grid-cols-2">
       <div
         transition:fade={{ duration: 1500 }}
-        class="flex items-center font-bold text-2xl bg-linear-to-r from-purple-400 to-purple-950 bg-clip-text text-transparent"
+        class="flex items-center font-bold text-2xl bg-linear-to-r from-purple-300 to-purple-950 bg-clip-text text-transparent"
       >
         Agata Khurtsidze
       </div>

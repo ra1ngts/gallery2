@@ -105,7 +105,7 @@
   const availableCategories = $derived(getCategories(stateCtx.artworks));
 </script>
 
-<div class="overflow-hidden rounded-3xl transition-all duration-300 bg-purple-950/15 hover:bg-purple-950/30">
+<div class="mb-4 overflow-hidden rounded-3xl transition-all duration-300 bg-linear-to-t from-purple-950/20 to-black">
   <div class="p-4 items-center text-center font-semibold">
     {stateCtx.featuredWork.title} ({stateCtx.featuredWork.year})
   </div>
@@ -125,33 +125,44 @@
   </div>
 </div>
 
-{#each availableCategories as catId}
-  <div class="pb-4 art-work">
-    <div class="swiper" use:swiperCreation>
-      <div class="swiper-wrapper">
-        {#each stateCtx.artworks.filter((a) => a.category.id === catId) as artwork}
-          <div class="swiper-slide pb-4">
-            <div
-              class="h-full flex flex-col p-4 lg:p-8 rounded-3xl transition-all duration-300 bg-purple-950/40 shadow-2xl backdrop-blur-md hover:bg-purple-950/40 lg:bg-transparent lg:hover:backdrop-blur-md
-                lg:hover:shadow-2xl lg:hover:shadow-purple-500/10"
-            >
-              <div class="h-80 overflow-hidden rounded-2xl">
-                <a href={artwork.image} data-fancybox="gallery-{artwork.id}">
-                  <img
-                    src={artwork.image}
-                    alt={artwork.title}
-                    class="w-full h-full object-cover cursor-pointer scale-100 transition-transform duration-300 ease-in-out hover:rotate-3 hover:scale-110"
-                  />
-                </a>
+{#if availableCategories.length > 0}
+  {#each availableCategories as catId}
+    {@const categoryArtworks = stateCtx.artworks.filter((a) => a.category.id === catId)}
+    <div class="art-work">
+      {#if categoryArtworks.length > 0}
+        <div class="py-4 mb-4 bg-purple-950/20 text-purple-500 rounded-2xl text-xl font-semibold text-center">
+          {categoryArtworks[0].category.title}
+        </div>
+      {/if}
+
+      <div class="swiper" use:swiperCreation>
+        <div class="swiper-wrapper">
+          {#each categoryArtworks as artwork}
+            <div class="swiper-slide">
+              <div
+                class="h-full flex flex-col mb-4 p-4 lg:p-8 rounded-3xl transition-all duration-300 bg-purple-950/20 shadow-2xl backdrop-blur-md hover:bg-purple-950/20 lg:bg-transparent lg:hover:backdrop-blur-md
+                lg:hover:shadow-2xl lg:hover:shadow-purple-600/20"
+              >
+                <div class="h-80 overflow-hidden rounded-2xl">
+                  <a href={artwork.image} data-fancybox="gallery-{artwork.id}">
+                    <img
+                      src={artwork.image}
+                      alt={artwork.title}
+                      class="w-full h-full object-cover cursor-pointer scale-100 transition-transform duration-300 ease-in-out hover:rotate-3 hover:scale-110"
+                    />
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        {/each}
+          {/each}
+        </div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
       </div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
-    </div>
 
-    <div class="swiper-pagination-artworks"></div>
-  </div>
-{/each}
+      <div class="swiper-pagination-artworks"></div>
+    </div>
+  {/each}
+{:else}
+  No artworks available
+{/if}
