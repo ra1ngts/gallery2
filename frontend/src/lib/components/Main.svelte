@@ -131,9 +131,12 @@
     {@const categoryArtworks = stateCtx.artworks.filter((a) => a.category.id === catId)}
     <div class="art-work">
       {#if categoryArtworks.length > 0}
-        <div class="py-4 mb-4 bg-purple-950/20 text-purple-500 rounded-2xl text-xl font-semibold text-center">
+        <button
+          onclick={() => routeChoice({ page: stateCtx.pages.category, slug: categoryArtworks[0].category.slug })}
+          class="w-full block cursor-pointer py-4 mb-4 bg-purple-950/20 transition-colors duration-300 text-purple-500 hover:text-purple-400 rounded-2xl text-xl font-semibold text-center"
+        >
           {categoryArtworks[0].category.title}
-        </div>
+        </button>
       {/if}
 
       <div class="swiper" use:swiperCreation>
