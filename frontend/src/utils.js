@@ -19,6 +19,7 @@ export const getCategory = async (slug) => {
 
       if (data.status === 'success') {
         stateCtx.page = stateCtx.pages.category;
+        stateCtx.artworksCategory = data.artworks;
         console.log('category (POST) successfully sending:', data);
       } else {
         stateCtx.page = stateCtx.pages.main;
