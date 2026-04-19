@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { fly, fade } from 'svelte/transition';
   import { stateCtx } from '../../store.svelte';
+  import { routeChoice } from '../../utils';
 
   import Main from './Main.svelte';
   import Category from './Category.svelte';
@@ -48,49 +49,6 @@
 
   const closeGoToCategory = () => {
     isCategoryOpen = false;
-  };
-
-  const routeChoice = (route) => {
-    stateCtx.page = route.page;
-    console.log(route.page);
-
-    if (route.page === stateCtx.pages.category) {
-      console.log('category route', route.page === stateCtx.pages.category);
-      stateCtx.categorySlug = route.slug;
-      console.log('category slug', route.slug);
-      getCategory(route.slug);
-    } else {
-      stateCtx.categorySlug = null;
-    }
-  };
-
-  const getCategory = async (slug) => {
-    try {
-      stateCtx.page = stateCtx.pages.loading;
-
-      const response = await fetch(`/${slug}/`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      if (data.status === 'success') {
-        stateCtx.page = stateCtx.pages.category;
-        console.log('category (POST) successfully sending:', data);
-      } else {
-        stateCtx.page = stateCtx.pages.main;
-        console.error('category (POST) sending error:', data);
-      }
-    } catch (error) {
-      console.error('Error in getCategory has been caught:', error);
-    }
   };
 
   onMount(() => {

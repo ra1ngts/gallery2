@@ -1,5 +1,6 @@
 <script>
   import { stateCtx } from '../../store.svelte';
+  import { routeChoice } from '../../utils';
 
   import Swiper from 'swiper';
   import { Navigation, Pagination, Mousewheel } from 'swiper/modules';
@@ -155,6 +156,26 @@
               </div>
             </div>
           {/each}
+
+          {#if categoryArtworks.length > 3}
+            <div class="swiper-slide">
+              <button
+                onclick={() => routeChoice({ page: stateCtx.pages.category, slug: categoryArtworks[0].category.slug })}
+                class="group w-full h-full cursor-pointer flex flex-col mb-4 p-4 lg:p-8 rounded-3xl transition-all duration-300 bg-purple-950/20 shadow-2xl backdrop-blur-md hover:bg-purple-950/20 lg:bg-transparent lg:hover:backdrop-blur-md
+                lg:hover:shadow-2xl lg:hover:shadow-purple-600/20"
+              >
+                <div
+                  class="h-80 flex items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-purple-500/40 group-hover:border-purple-500 transition-colors"
+                >
+                  <span
+                    class="text-purple-500 group-hover:text-purple-400 font-bold text-xl uppercase tracking-wider group-hover:rotate-3 transition-transform duration-300 ease-in-out group-hover:scale-110"
+                  >
+                    View all
+                  </span>
+                </div>
+              </button>
+            </div>
+          {/if}
         </div>
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
