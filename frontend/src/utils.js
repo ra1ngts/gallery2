@@ -58,16 +58,16 @@ export function formateDate(date) {
 }
 
 // getDuration
-export function getDuration(startDate, endDate, isCurrent) {
-    const start = formateDate(startDate);
+// export function getDuration(startDate, endDate, isCurrent) {
+//     const start = formateDate(startDate);
     
-    if (isCurrent || !endDate) {
-        return `${start} — ${stateCtx.translation.utils?.present}`;
-    }
+//     if (isCurrent || !endDate) {
+//         return `${start} — ${stateCtx.translation.utils?.present}`;
+//     }
     
-    const end = formateDate(endDate);
-    return `${start} — ${end}`;
-}
+//     const end = formateDate(endDate);
+//     return `${start} — ${end}`;
+// }
 
 // Email address validation
 export function isEmailValidate(email) {
