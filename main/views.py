@@ -2,7 +2,7 @@ import os
 
 from django.db.models import Window, F
 from django.db.models.functions import RowNumber
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404, render
 from django.utils.translation import gettext_lazy as _
 
@@ -111,7 +111,14 @@ def index(request):
 
 
 def category(request, slug):
-    category = get_object_or_404(Category, slug=slug)
+    try:
+        category = get_object_or_404(Category, slug=slug)
+
+    except Http404:
+        return JsonResponse({
+            'status': 'error',
+            'message': _('Категория не найдена')
+        }, status=404)
 
     return JsonResponse({
         'status': 'success',
