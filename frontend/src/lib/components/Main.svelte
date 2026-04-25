@@ -1,4 +1,5 @@
 <script>
+  import { fade } from 'svelte/transition';
   import { stateCtx } from '../../store.svelte';
   import { routeChoice } from '../../utils';
 
@@ -104,10 +105,20 @@
   }
 
   const availableCategories = $derived(getCategories(stateCtx.artworks));
+
+  let isLoaded = $state(false);
 </script>
 
-<div class="mb-4 overflow-hidden rounded-3xl transition-all duration-300 bg-linear-to-t from-purple-950/20 to-black">
-  <div class="p-4 items-center text-center font-semibold">
+<div
+  transition:fade={{ duration: 500 }}
+  class="mb-4 overflow-hidden rounded-3xl transition-all duration-300 bg-linear-to-t from-purple-950/20 to-black"
+>
+  <div
+    class="p-4 items-center text-center font-semibold"
+    class:opacity-0={!isLoaded}
+    class:opacity-100={isLoaded}
+    onload={() => (isLoaded = true)}
+  >
     {stateCtx.featuredWork.title} ({stateCtx.featuredWork.year})
   </div>
 
@@ -117,6 +128,9 @@
         src={stateCtx.featuredWork.image}
         alt={stateCtx.featuredWork.title}
         class="w-full h-full object-contain cursor-pointer"
+        class:opacity-0={!isLoaded}
+        class:opacity-100={isLoaded}
+        onload={() => (isLoaded = true)}
       />
     </a>
   </div>
@@ -188,5 +202,12 @@
     </div>
   {/each}
 {:else}
-  No artworks available
+  <div
+    class="flex w-full items-center justify-center"
+    class:opacity-0={!isLoaded}
+    class:opacity-100={isLoaded}
+    onload={() => (isLoaded = true)}
+  >
+    <div class="text-center">No artworks available</div>
+  </div>
 {/if}
