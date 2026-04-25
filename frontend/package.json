@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@fancyapps/ui": "^6.1.13",
+    "@masonry-grid/svelte": "^1.1.1",
     "@tailwindcss/vite": "^4.2.2",
     "swiper": "^12.1.3",
     "tailwindcss": "^4.2.2"
