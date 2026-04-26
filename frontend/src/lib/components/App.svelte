@@ -133,7 +133,7 @@
                 class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.page ===
                 item.id
                   ? 'text-purple-500'
-                  : 'text-gray-400 cursor-pointer'}"
+                  : 'text-purple-700 cursor-pointer'}"
                 onclick={() => routeChoice({ page: item.id })}>{item.title}</button
               >
             </div>
@@ -145,7 +145,7 @@
                 class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold cursor-pointer {stateCtx.page ===
                 item.id
                   ? 'text-purple-500'
-                  : 'text-gray-400'}"
+                  : 'text-purple-700'}"
                 onclick={goToCategory}
               >
                 {item.title}
@@ -161,7 +161,7 @@
                         class="w-full transition-colors duration-300 px-3 py-1.5 rounded-2xl hover:bg-purple-950 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
                         category.slug
                           ? 'text-purple-500'
-                          : 'text-gray-400 cursor-pointer'}"
+                          : 'text-purple-700 cursor-pointer'}"
                         onclick={() => (routeChoice({ page: item.id, slug: category.slug }), closeGoToCategory())}
                         >{category.title}</button
                       >

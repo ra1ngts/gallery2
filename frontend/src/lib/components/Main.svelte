@@ -127,7 +127,7 @@
       <img
         src={stateCtx.featuredWork.image}
         alt={stateCtx.featuredWork.title}
-        class="w-full h-full object-contain cursor-pointer"
+        class="w-full h-full object-cover rounded-3xl cursor-pointer"
         class:opacity-0={!isLoaded}
         class:opacity-100={isLoaded}
         onload={() => (isLoaded = true)}
