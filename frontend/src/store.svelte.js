@@ -1,5 +1,6 @@
 // stateCtx
 export const stateCtx = $state({
+    profile: {},
     artworks: [],
     artworksCategory: [],
     featuredWork: {},
