@@ -64,7 +64,7 @@
     <nav class="grid grid-cols-2">
       <div
         transition:fade={{ duration: 1500 }}
-        class="flex items-center gap-4 font-bold text-2xl bg-linear-to-r from-purple-300 to-purple-950 bg-clip-text text-transparent [&_svg]:h-7 [&_svg]:w-7 [&_svg]:fill-purple-500 [&_svg]:hover:fill-purple-400 [&_svg]:transition-colors [&_svg]:duration-300"
+        class="flex items-center gap-4 font-bold text-2xl bg-linear-to-r from-purple-400 to-purple-700 bg-clip-text text-transparent [&_svg]:h-7 [&_svg]:w-7 [&_svg]:fill-purple-500 [&_svg]:hover:fill-purple-400 [&_svg]:transition-colors [&_svg]:duration-300"
       >
         {#if stateCtx.profile}
           {#if stateCtx.profile?.name || stateCtx.profile?.lastname}
@@ -153,12 +153,12 @@
               {#if isCategoryOpen}
                 <div
                   transition:fly={{ y: -10, duration: 300 }}
-                  class="min-w-50 absolute left-1/2 -translate-x-1/2 mt-5 p-4 bg-gray-950/90 backdrop-blur-md rounded-3xl shadow-purple-500/30 shadow-2xl"
+                  class="min-w-50 absolute left-1/2 -translate-x-1/2 mt-5 p-3 bg-gray-950/90 backdrop-blur-md rounded-2xl shadow-purple-500/30 shadow-2xl"
                 >
                   {#each stateCtx.categories as category}
                     <div>
                       <button
-                        class="w-full transition-colors duration-300 px-3 py-1.5 rounded-2xl hover:bg-purple-950 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
+                        class="w-full transition-colors duration-300 p-2 rounded-xl hover:bg-purple-950 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
                         category.slug
                           ? 'text-purple-500'
                           : 'text-purple-700 cursor-pointer'}"
@@ -189,7 +189,7 @@
   {/if}
 
   <footer>
-    <div class="flex py-4 items-center justify-center text-purple-950 gap-2 transition-colors duration-300 group">
+    <div class="flex py-8 items-center justify-center text-purple-950 gap-2 transition-colors duration-300 group">
       <a
         href="mailto:{stateCtx.profile.email}"
         class="flex items-center gap-2 transition-colors duration-300 group-hover:text-purple-400"
