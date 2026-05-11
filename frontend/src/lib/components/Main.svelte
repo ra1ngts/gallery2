@@ -182,10 +182,10 @@
                 lg:hover:shadow-2xl lg:hover:shadow-purple-600/20"
               >
                 <div
-                  class="h-80 flex items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-purple-500/40 group-hover:border-purple-500 transition-colors"
+                  class="h-80 flex items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-purple-500 group-hover:border-purple-400 transition-colors"
                 >
                   <span
-                    class="text-purple-500 group-hover:text-purple-400 font-bold text-xl uppercase tracking-wider group-hover:rotate-3 transition-transform duration-300 ease-in-out group-hover:scale-110"
+                    class="text-purple-500 group-hover:text-purple-400 font-bold text-xl uppercase tracking-wider transition-transform duration-300 ease-in-out group-hover:scale-110"
                   >
                     View all
                   </span>
