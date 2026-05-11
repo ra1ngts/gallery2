@@ -5,6 +5,7 @@ from django.db.models.functions import RowNumber
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404, render
 from django.utils.translation import gettext_lazy as _
+from easy_thumbnails.files import get_thumbnailer
 
 from gallery2 import settings
 from .models import (
@@ -16,6 +17,21 @@ from .models import (
 from .utils import get_svelte_manifest
 
 
+def get_thumb(image_field, size=(800, 0), crop=False):
+    if not image_field:
+        return None
+
+    url_lower = image_field.url.lower()
+    if url_lower.endswith('.svg') or '.svg?' in url_lower:
+        return image_field.url
+
+    try:
+        options = {'size': size, 'crop': crop, 'quality': 80}
+        return get_thumbnailer(image_field).get_thumbnail(options).url
+    except Exception:
+        return image_field.url
+
+
 def ResultEncoder(obj):
     if isinstance(obj, Artwork):
         return {
@@ -24,7 +40,7 @@ def ResultEncoder(obj):
             'description': obj.description,
             'year': obj.year,
             'image': [
-                img.image.url for img in obj.images.all() if img.image
+                get_thumb(img.image, size=(2000, 900)) for img in obj.images.all() if img.image
             ],
             'category': ResultEncoder(obj.category) if obj.category else None,
             'technique': ResultEncoder(obj.technique) if obj.technique else None
@@ -49,7 +65,7 @@ def ResultEncoder(obj):
             'id': obj.id,
             'name': obj.name,
             'lastname': obj.lastname,
-            'image': obj.image.url if obj.image else None,
+            'image': get_thumb(obj.image, size=(300, 300), crop=True) if obj.image else None,
             'description': obj.description,
             'phone': obj.phone,
             'email': obj.email,
