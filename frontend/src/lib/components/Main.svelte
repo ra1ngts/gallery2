@@ -21,6 +21,7 @@
       slidesPerView: 3,
       spaceBetween: 16,
       watchOverflow: true,
+      lazyPreloadPrevNext: 1,
       loop: false,
       pagination: {
         el: swiperObj.closest('.art-work').querySelector('.swiper-pagination-artworks'),
@@ -162,12 +163,18 @@
                 lg:hover:shadow-2xl lg:hover:shadow-purple-600/20"
               >
                 <div class="h-80 overflow-hidden rounded-2xl">
-                  <a href={artwork.image} data-fancybox="gallery-{artwork.id}">
+                  <a
+                    class="relative block w-full h-full overflow-hidden"
+                    href={artwork.image}
+                    data-fancybox="gallery-{artwork.id}"
+                  >
                     <img
                       src={artwork.image}
                       alt={artwork.title}
                       class="w-full h-full object-cover cursor-pointer scale-100 transition-transform duration-300 ease-in-out hover:rotate-3 hover:scale-110"
+                      loading="lazy"
                     />
+                    <div class="swiper-lazy-preloader"></div>
                   </a>
                 </div>
               </div>
@@ -185,7 +192,7 @@
                   class="h-80 flex items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-purple-500 group-hover:border-purple-400 transition-colors"
                 >
                   <span
-                    class="text-purple-500 group-hover:text-purple-400 font-bold text-xl uppercase tracking-wider transition-transform duration-300 ease-in-out group-hover:scale-110"
+                    class="text-purple-500 group-hover:text-purple-400 font-bold text-xl uppercase tracking-wider transition-all duration-300 ease-in-out"
                   >
                     View all
                   </span>

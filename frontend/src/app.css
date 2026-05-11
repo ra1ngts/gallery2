@@ -38,6 +38,7 @@
   :root {
     --font-roboto: "Roboto", ui-sans-serif, system-ui, sans-serif;
     scroll-behavior: smooth;
+    --swiper-preloader-color: var(--color-purple-950);
   }
 
   @media (prefers-reduced-motion: reduce) {
