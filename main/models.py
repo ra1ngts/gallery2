@@ -211,6 +211,10 @@ class Profile(Basic, BaseModelPublished, BaseModelOrderby):
     def __str__(self):
         return self.name
 
+    @property
+    def get_title(self):
+        return f'{self.name} {self.lastname} - {_("портфолио")}'
+
     @classmethod
     def get_profile_data(cls):
         obj, created = cls.objects.get_or_create(pk=1)

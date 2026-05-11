@@ -105,7 +105,8 @@ def index(request):
     ctx = {
         'site_key': settings.RECAPTCHA_PUBLIC_KEY,
         'manifest_css': manifest.get('css', []),
-        'manifest_js': manifest.get('file', '')
+        'manifest_js': manifest.get('file', ''),
+        'title': Profile.get_profile_data().get_title
     }
 
     return render(request, 'main/index.html', ctx)
