@@ -6,6 +6,7 @@
 
   import Main from './Main.svelte';
   import Category from './Category.svelte';
+  import About from './About.svelte';
   import Contact from './Contact.svelte';
   import Loader from './Loader.svelte';
 
@@ -180,6 +181,7 @@
 <div class="container pt-20">
   {#if stateCtx.page === stateCtx.pages.main}
     <Main />
+    <About />
   {:else if stateCtx.page === stateCtx.pages.category}
     <Category />
   {:else if stateCtx.page === stateCtx.pages.contact}
