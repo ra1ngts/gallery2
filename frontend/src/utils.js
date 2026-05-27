@@ -20,6 +20,8 @@ export const getCategory = async (slug) => {
       if (data.status === 'success') {
         stateCtx.page = stateCtx.pages.category;
         stateCtx.artworksCategory = data.artworks;
+        stateCtx.categoryTitle = data.title;
+        window.scrollTo({ top: 0, behavior: 'instant' });
         console.log('category (POST) successfully sending:', data);
       } else {
         stateCtx.page = stateCtx.pages.main;
@@ -118,3 +120,26 @@ export function showToast(message, type = 'success') {
         stateCtx.toast.show = false;
     }, 3000);
 }
+
+// DATA = {
+//     year: 2012,
+//     month: 8,
+//     day: 13
+// }
+
+// function getAge() {
+//     const DATE = new Date();
+//     const CURRENT_YEAR = DATE.getFullYear();
+//     const CURRENT_MONTH = DATE.getMonth() + 1;
+//     const CURRENT_DAY = DATE.getDate();
+
+//     let age = CURRENT_YEAR - DATA.year;
+
+//     if (CURRENT_MONTH < DATA.month || (CURRENT_MONTH === DATA.month && CURRENT_DAY < DATA.day)) {
+//         age--;
+//     }
+//     console.log('age', age);
+//     return age;
+// }
+
+// getAge();

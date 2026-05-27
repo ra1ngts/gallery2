@@ -10,23 +10,49 @@
 
   const getRandomSize = () => Math.floor(Math.random() * 3) + 2;
 
-  Fancybox.bind("[data-fancybox^='artwork-']", {
+  Fancybox.bind("[data-fancybox^='artwork-gallery']", {
     hideScrollbar: true,
     wheel: 'slide',
     backdropClick: 'close',
     Hash: false,
+    Carousel: {
+      Toolbar: {
+        display: {
+          left: ['counter'],
+          middle: [],
+          right: ['toggle1to1', 'thumbs', 'autoplay', 'close'],
+        },
+      },
+    },
   });
 
+  let defaultYear = 'All years';
   let selectedYear = $state('All years');
+
+  let defaultSelectedTechnique = 'All techniques';
   let selectedTechnique = $state('All techniques');
 
-  const years = $derived(
-    [selectedYear, ...new Set(stateCtx.artworksCategory.map((y) => y.year))].sort((a, b) => b - a),
-  );
-  console.log('years', years);
+  const years = $derived([
+    defaultYear,
+    ...[...new Set(stateCtx.artworksCategory.map((y) => y.year))].sort((a, b) => b - a),
+  ]);
+  $inspect('years', years);
 
-  const techniques = $derived([selectedTechnique, ...new Set(stateCtx.artworksCategory.map((t) => t.technique.title))]);
-  console.log('techniques', techniques);
+  const techniques = $derived([
+    defaultSelectedTechnique,
+    ...[...new Set(stateCtx.artworksCategory.map((t) => t.technique.title))],
+  ]);
+  $inspect('techniques', techniques);
+
+  const filteredArtworks = $derived(
+    stateCtx.artworksCategory.filter((artwork) => {
+      const matchYear = selectedYear === defaultYear || artwork.year === selectedYear;
+      const matchTechnique =
+        selectedTechnique === defaultSelectedTechnique || artwork.technique.title === selectedTechnique;
+      return matchYear && matchTechnique;
+    }),
+  );
+  $inspect('filteredArtworks', filteredArtworks);
 </script>
 
 <div class="grid grid-cols-5 gap-4">
@@ -34,26 +60,34 @@
     <div class="grid grid-cols-1 gap-4">
       <div class="rounded-2xl bg-purple-950/25">
         <div class="mt-2 text-purple-400 font-bold text-center">Year</div>
-        <div class="p-2">
+        <div class="p-2 flex flex-col gap-1">
           {#each years as year}
-            <div
-              class="cursor-pointer p-2 transition-all duration-300 text-purple-500 hover:text-purple-400 hover:bg-purple-950 hover:p-2 hover:rounded-xl"
+            <button
+              onclick={() => (selectedYear = year)}
+              class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-xl
+              {selectedYear === year
+                ? 'text-purple-400 bg-purple-950 rounded-xl'
+                : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
             >
               {year}
-            </div>
+            </button>
           {/each}
         </div>
       </div>
 
       <div class="rounded-2xl bg-purple-950/25">
         <div class="mt-2 text-purple-400 font-bold text-center">Technique</div>
-        <div class="p-2">
+        <div class="p-2 flex flex-col gap-1">
           {#each techniques as technique}
-            <div
-              class="cursor-pointer p-2 transition-all duration-300 text-purple-500 hover:text-purple-400 hover:bg-purple-950 hover:p-2 hover:rounded-xl"
+            <button
+              onclick={() => (selectedTechnique = technique)}
+              class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-xl
+              {selectedTechnique === technique
+                ? 'text-purple-400 bg-purple-950 rounded-xl'
+                : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
             >
               {technique}
-            </div>
+            </button>
           {/each}
         </div>
       </div>
@@ -61,23 +95,29 @@
   </div>
 
   <div class="col-span-4">
-    {#if stateCtx.artworksCategory.length > 0}
+    {#if filteredArtworks.length > 0}
+      <div
+        class="w-full block py-4 mb-4 bg-purple-950/20 transition-colors duration-300 text-purple-400 rounded-2xl text-xl font-semibold text-center"
+      >
+        {stateCtx.categoryTitle}
+      </div>
+
       <div transition:fade={{ duration: 500 }} class="w-full h-full">
         <MasonryGrid frameWidth={300} gap={15}>
-          {#each stateCtx.artworksCategory as artwork}
+          {#each filteredArtworks as artwork (artwork.id)}
             {@const randomW = getRandomSize()}
             {@const randomH = getRandomSize()}
-
             <Frame width={randomW} height={randomH}>
               <a
                 href={artwork.image}
-                data-fancybox="artwork-{artwork.id}"
+                data-fancybox="artwork-gallery"
                 class="block w-full h-full cursor-pointer opacity-90 transition-opacity duration-300 ease-in-out hover:opacity-100"
               >
                 <img
                   src={artwork.image}
                   alt={artwork.title}
                   class="block w-full h-full rounded-2xl object-cover cursor-pointer"
+                  loading="lazy"
                 />
               </a>
             </Frame>

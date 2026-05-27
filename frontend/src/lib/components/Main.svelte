@@ -84,6 +84,15 @@
       wheel: 'slide',
       backdropClick: 'close',
       Hash: false,
+      Carousel: {
+        Toolbar: {
+          display: {
+            left: [],
+            middle: [],
+            right: ['close'],
+          },
+        },
+      },
     });
 
     const carouselInstances = Array.from(document.querySelectorAll('.f-carousel')).map((el) => {
@@ -132,6 +141,7 @@
         class:opacity-0={!isLoaded}
         class:opacity-100={isLoaded}
         onload={() => (isLoaded = true)}
+        loading="lazy"
       />
     </a>
   </div>
@@ -171,7 +181,7 @@
                     <img
                       src={artwork.image}
                       alt={artwork.title}
-                      class="w-full h-full object-cover cursor-pointer scale-100 transition-transform duration-300 ease-in-out hover:rotate-3 hover:scale-110"
+                      class="w-full h-full object-cover cursor-pointer scale-100 transition-all duration-300 ease-in-out hover:rotate-3 hover:scale-110 opacity-90 hover:opacity-100"
                       loading="lazy"
                     />
                     <div class="swiper-lazy-preloader"></div>
