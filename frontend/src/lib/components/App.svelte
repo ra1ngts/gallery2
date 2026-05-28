@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import { fly, fade } from 'svelte/transition';
   import { stateCtx } from '../../store.svelte';
   import { routeChoice } from '../../utils';
@@ -53,8 +53,58 @@
     isCategoryOpen = false;
   };
 
+  const sections = $derived([
+    { id: 'main', label: 'Main' },
+    { id: 'about', label: 'About' },
+    { id: 'contact', label: 'Contact' },
+  ]);
+
+  async function scrollTo(id) {
+    if (stateCtx.page !== stateCtx.pages.main) {
+      stateCtx.page = stateCtx.pages.main;
+      await tick();
+    }
+
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
   onMount(() => {
     getMain();
+  });
+
+  $effect(() => {
+    const currentPage = stateCtx.page;
+    if (currentPage !== stateCtx.pages.main) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            stateCtx.activeSection = entry.target.id;
+          }
+        });
+      },
+      {
+        rootMargin: '-80px 0px -50% 0px',
+        threshold: 0.1,
+      },
+    );
+
+    setTimeout(() => {
+      sections.forEach((section) => {
+        const el = document.getElementById(section.id);
+        if (el) {
+          observer.observe(el);
+        }
+      });
+    }, 50);
+
+    return () => {
+      observer.disconnect();
+    };
   });
 </script>
 
@@ -132,10 +182,10 @@
             <div class="flex gap-2 relative">
               <button
                 class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.page ===
-                item.id
+                  stateCtx.pages.main && stateCtx.activeSection === item.id
                   ? 'text-purple-500'
                   : 'text-purple-700 cursor-pointer'}"
-                onclick={() => routeChoice({ page: item.id })}>{item.title}</button
+                onclick={() => scrollTo(item.id)}>{item.title}</button
               >
             </div>
           {/if}
@@ -180,12 +230,19 @@
 
 <div class="container pt-20">
   {#if stateCtx.page === stateCtx.pages.main}
-    <Main />
-    <About />
+    <section id="main" class="scroll-mt-20">
+      <Main />
+    </section>
+
+    <section id="about" class="pb-4 scroll-mt-20">
+      <About />
+    </section>
+
+    <section id="contact" class="scroll-mt-20">
+      <Contact />
+    </section>
   {:else if stateCtx.page === stateCtx.pages.category}
     <Category />
-  {:else if stateCtx.page === stateCtx.pages.contact}
-    <Contact />
   {:else if stateCtx.page === stateCtx.pages.loading}
     <Loader />
   {/if}

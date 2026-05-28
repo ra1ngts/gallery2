@@ -19,5 +19,6 @@ export const stateCtx = $state({
         {id: 'category', title: 'Category'},
         {id: 'about', title: 'About'},
         {id: 'contact', title: 'Contact'}
-    ]
+    ],
+    activeSection: 'main'
 });
