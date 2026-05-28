@@ -181,9 +181,9 @@
           {#if item.id !== 'category'}
             <div class="flex gap-2 relative">
               <button
-                class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.page ===
+                class="neon-glow-hover text-sm sm:text-base md:text-xl font-semibold {stateCtx.page ===
                   stateCtx.pages.main && stateCtx.activeSection === item.id
-                  ? 'text-purple-500'
+                  ? 'neon-glow-active'
                   : 'text-purple-700 cursor-pointer'}"
                 onclick={() => scrollTo(item.id)}>{item.title}</button
               >
@@ -193,9 +193,9 @@
           {#if item.id === 'category'}
             <div class="relative inline-block" onclick={(e) => e.stopPropagation()} aria-hidden="true">
               <button
-                class="transition-colors duration-300 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold cursor-pointer {stateCtx.page ===
+                class="neon-glow-hover text-sm sm:text-base md:text-xl font-semibold cursor-pointer {stateCtx.page ===
                 item.id
-                  ? 'text-purple-500'
+                  ? 'neon-glow-active'
                   : 'text-purple-700'}"
                 onclick={goToCategory}
               >
@@ -209,9 +209,9 @@
                   {#each stateCtx.categories as category}
                     <div>
                       <button
-                        class="w-full transition-colors duration-300 p-2 rounded-xl hover:bg-purple-950 hover:text-purple-400 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
+                        class="w-full p-2 rounded-xl neon-glow-hover hover:bg-purple-950 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
                         category.slug
-                          ? 'text-purple-500'
+                          ? 'neon-glow-active'
                           : 'text-purple-700 cursor-pointer'}"
                         onclick={() => (routeChoice({ page: item.id, slug: category.slug }), closeGoToCategory())}
                         >{category.title}</button

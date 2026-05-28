@@ -158,7 +158,7 @@
       {#if categoryArtworks.length > 0}
         <button
           onclick={() => routeChoice({ page: stateCtx.pages.category, slug: categoryArtworks[0].category.slug })}
-          class="w-full block cursor-pointer py-4 mb-4 bg-purple-950/20 transition-colors duration-300 text-purple-500 hover:text-purple-400 rounded-2xl text-xl font-semibold text-center"
+          class="w-full block cursor-pointer py-4 mb-4 bg-purple-950/20 text-purple-500 neon-glow-hover rounded-2xl text-xl font-semibold text-center"
         >
           {categoryArtworks[0].category.title}
         </button>

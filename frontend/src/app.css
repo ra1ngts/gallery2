@@ -53,6 +53,26 @@
   }
 }
 
+@layer utilities {
+  .neon-glow-hover {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .neon-glow-hover:hover {
+    color: var(--color-purple-400) !important;
+    text-shadow: 
+      0 0 12px rgba(168, 85, 247, 0.6),
+      0 0 20px rgba(168, 85, 247, 0.4);
+    filter: brightness(1.2);
+  }
+
+  .neon-glow-active {
+    color: var(--color-purple-500) !important;
+    text-shadow: 
+      0 0 10px rgba(168, 85, 247, 0.5);
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -64,19 +84,6 @@ html {
   padding-right: 15px;
   margin-left: auto;
   margin-right: auto;
-}
-
-@media (min-width: 768px) {
-  .container {
-    padding-right: 30px;
-    padding-left: 30px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1367px;
-  }
 }
 
 .swiper-horizontal .swiper-button-prev {
@@ -115,4 +122,17 @@ html {
   justify-content: center;
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1367px;
+  }
 }
