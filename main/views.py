@@ -18,6 +18,7 @@ from .models import (
     Technique,
     Profile
 )
+from .translation_dict import getTranslateDict
 from .utils import get_svelte_manifest
 
 
@@ -142,6 +143,7 @@ def index(request):
             return JsonResponse({
                 'status': 'success',
                 'title': _('Галерея'),
+                'translation': getTranslateDict(),
                 'profile': ResultEncoder(Profile.get_profile_data()),
                 'artworks': [ResultEncoder(artwork) for artwork in artworks],
                 'featured_work': ResultEncoder(Artwork.objects.filter(is_featured=True).first()),

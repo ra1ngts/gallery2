@@ -9,6 +9,7 @@
   import About from './About.svelte';
   import Contact from './Contact.svelte';
   import Loader from './Loader.svelte';
+  import Toast from './Toast.svelte';
 
   const getMain = async () => {
     try {
@@ -32,6 +33,8 @@
         stateCtx.artworks = data.artworks;
         stateCtx.featuredWork = data.featured_work;
         stateCtx.categories = data.categories;
+        stateCtx.form = data.form;
+        stateCtx.translation = data.translation;
         stateCtx.page = stateCtx.pages.main;
         console.log('index (GET) successfully sending:', data);
       } else {
@@ -53,10 +56,11 @@
     isCategoryOpen = false;
   };
 
-  const sections = $derived([
-    { id: 'main', label: 'Main' },
-    { id: 'about', label: 'About' },
-    { id: 'contact', label: 'Contact' },
+  const menuSections = $derived([
+    { id: 'main', title: stateCtx.translation?.app.sectionTitle.main },
+    { id: 'category', title: stateCtx.translation?.app.sectionTitle.category },
+    { id: 'about', title: stateCtx.translation?.app.sectionTitle.about },
+    { id: 'contact', title: stateCtx.translation?.app.sectionTitle.contact },
   ]);
 
   async function scrollTo(id) {
@@ -94,7 +98,7 @@
     );
 
     setTimeout(() => {
-      sections.forEach((section) => {
+      menuSections.forEach((section) => {
         const el = document.getElementById(section.id);
         if (el) {
           observer.observe(el);
@@ -177,29 +181,29 @@
       </div>
 
       <div class="flex items-center gap-4 overflow-visible">
-        {#each stateCtx.menu as item}
-          {#if item.id !== 'category'}
+        {#each menuSections as section}
+          {#if section.id !== 'category'}
             <div class="flex gap-2 relative">
               <button
                 class="neon-glow-hover text-sm sm:text-base md:text-xl font-semibold {stateCtx.page ===
-                  stateCtx.pages.main && stateCtx.activeSection === item.id
+                  stateCtx.pages.main && stateCtx.activeSection === section.id
                   ? 'neon-glow-active'
                   : 'text-purple-700 cursor-pointer'}"
-                onclick={() => scrollTo(item.id)}>{item.title}</button
+                onclick={() => scrollTo(section.id)}>{section.title}</button
               >
             </div>
           {/if}
 
-          {#if item.id === 'category'}
+          {#if section.id === 'category'}
             <div class="relative inline-block" onclick={(e) => e.stopPropagation()} aria-hidden="true">
               <button
                 class="neon-glow-hover text-sm sm:text-base md:text-xl font-semibold cursor-pointer {stateCtx.page ===
-                item.id
+                section.id
                   ? 'neon-glow-active'
                   : 'text-purple-700'}"
                 onclick={goToCategory}
               >
-                {item.title}
+                {section.title}
               </button>
               {#if isCategoryOpen}
                 <div
@@ -213,7 +217,7 @@
                         category.slug
                           ? 'neon-glow-active'
                           : 'text-purple-700 cursor-pointer'}"
-                        onclick={() => (routeChoice({ page: item.id, slug: category.slug }), closeGoToCategory())}
+                        onclick={() => (routeChoice({ page: section.id, slug: category.slug }), closeGoToCategory())}
                         >{category.title}</button
                       >
                     </div>
@@ -265,11 +269,9 @@
           />
         </svg>
 
-        <div>
-          {new Date().getFullYear()}
-          {stateCtx.profile?.name}
-          {stateCtx.profile?.lastname}.
-        </div>
+        {new Date().getFullYear()}
+        {stateCtx.profile?.name}
+        {stateCtx.profile?.lastname}.
       </a>
 
       <a
@@ -277,7 +279,7 @@
         class="flex items-center gap-2 transition-colors duration-300 group-hover:text-purple-400"
         aria-label="Mail to: david.khurts@gmail.com"
       >
-        Made by father with
+        {stateCtx.translation?.app.copyright}
         <svg
           class="h-7 w-7 fill-purple-950 transition-colors duration-300 group-hover:fill-purple-400"
           version="1.0"

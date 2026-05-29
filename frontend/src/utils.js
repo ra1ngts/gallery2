@@ -88,25 +88,25 @@ export function markAsTouched(field) {
 // checkFields
 export function checkFields() {
     if (stateCtx.contactsData.name === '') {
-        stateCtx.formErrors['name'] = stateCtx.translation.contact?.errors.name;
+        stateCtx.formErrors['name'] = ''; //stateCtx.translation.contact?.errors.name;
     } else {
         delete stateCtx.formErrors['name'];
     }
 
     if (!isEmailValidate(stateCtx.contactsData.email) || stateCtx.contactsData.email === '') {
-        stateCtx.formErrors['email'] = stateCtx.translation.contact?.errors.email;
+        stateCtx.formErrors['email'] = ''; //stateCtx.translation.contact?.errors.email;
     } else {
         delete stateCtx.formErrors['email'];
     }
 
     if (stateCtx.contactsData.subject === '') {
-        stateCtx.formErrors['subject'] = stateCtx.translation.contact?.errors.subject;
+        stateCtx.formErrors['subject'] = ''; //stateCtx.translation.contact?.errors.subject;
     } else {
         delete stateCtx.formErrors['subject'];
     }
 
     if (stateCtx.contactsData.message === '') {
-        stateCtx.formErrors['message'] = stateCtx.translation.contact?.errors.message;
+        stateCtx.formErrors['message'] = ''; //stateCtx.translation.contact?.errors.message;
     } else {
         delete stateCtx.formErrors['message'];
     }
