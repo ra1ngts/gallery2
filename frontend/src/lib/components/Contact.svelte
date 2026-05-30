@@ -119,7 +119,7 @@
             placeholder={showError ? stateCtx.formErrors[orderItem] : field.label}
             class="block w-full rounded-2xl shadow-sm transition-all duration-300 outline-none p-2.5 border {showError
               ? 'border-red-500 focus:border-red-500 focus:ring-red-200/20'
-              : 'border-purple-700 focus:border-purple-200 focus:ring-purple-200/10'}"
+              : 'border-purple-950 focus:border-purple-500 focus:ring-purple-400'}"
           ></textarea>
         {:else}
           <input
@@ -133,7 +133,7 @@
             required={field.required}
             class="block w-full rounded-2xl shadow-sm transition-all duration-300 outline-none p-2.5 border {showError
               ? 'border-red-500 focus:border-red-500 focus:ring-red-200/20'
-              : 'border-purple-700 focus:border-purple-200 focus:ring-purple-200/10'}"
+              : 'border-purple-950 focus:border-purple-500 focus:ring-purple-400'}"
           />
         {/if}
       </div>
@@ -143,7 +143,7 @@
   <button
     onclick={handleSend}
     disabled={stateCtx.isSubmitting}
-    class="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-purple-400 disabled:shadow-none w-full py-3 px-4 bg-purple-400 hover:bg-purple-200 text-purple-800 font-bold rounded-2xl transition-colors duration-300 shadow-lg shadow-purple-400/30"
+    class="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-purple-400 disabled:shadow-none w-full py-3 px-4 bg-purple-500 hover:bg-purple-300 text-purple-900 font-bold rounded-2xl transition-colors duration-300 shadow-lg shadow-purple-400/30"
   >
     {stateCtx.isSubmitting ? stateCtx.translation?.contact.post.sending : stateCtx.translation?.contact.post.submit}
   </button>

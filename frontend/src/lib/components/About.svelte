@@ -8,7 +8,12 @@
 
 <div class="grid grid-cols-3 gap-4">
   <div class="h-full flex justify-center">
-    <img src={stateCtx.profile.image} alt={stateCtx.profile.name} class="object-contain rounded-3xl" loading="lazy" />
+    <img
+      src={stateCtx.profile.image}
+      alt={stateCtx.profile.name}
+      class="w-full h-full object-contain rounded-3xl opacity-90 hover:opacity-100 transition-all duration-300"
+      loading="lazy"
+    />
   </div>
 
   <div class="col-span-2">{stateCtx.profile.description}</div>
