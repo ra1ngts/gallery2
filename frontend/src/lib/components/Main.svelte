@@ -80,7 +80,7 @@
     }
 
     Fancybox.bind("[data-fancybox^='featured-'], [data-fancybox^='gallery-']", {
-      hideScrollbar: true,
+      hideScrollbar: false,
       wheel: 'slide',
       backdropClick: 'close',
       Hash: false,
@@ -121,7 +121,7 @@
 
 <div
   transition:fade={{ duration: 500 }}
-  class="mb-4 overflow-hidden rounded-3xl transition-all duration-300 bg-linear-to-t from-purple-950/20 to-black"
+  class="mb-4 overflow-hidden rounded-3xl transition-all duration-300 card-background backdrop-blur-md py-0 px-8 opacity-90 hover:opacity-100"
 >
   <div
     class="p-4 items-center text-center font-semibold"

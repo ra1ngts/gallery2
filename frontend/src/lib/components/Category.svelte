@@ -11,7 +11,7 @@
   const getRandomSize = () => Math.floor(Math.random() * 3) + 2;
 
   Fancybox.bind("[data-fancybox^='artwork-gallery']", {
-    hideScrollbar: true,
+    hideScrollbar: false,
     wheel: 'slide',
     backdropClick: 'close',
     Hash: false,
