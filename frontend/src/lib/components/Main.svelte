@@ -169,8 +169,8 @@
           {#each categoryArtworks as artwork}
             <div class="swiper-slide">
               <div
-                class="h-full flex flex-col mb-4 p-4 lg:p-8 rounded-3xl transition-all duration-300 bg-purple-950/20 shadow-2xl backdrop-blur-md hover:bg-purple-950/20 lg:bg-transparent lg:hover:backdrop-blur-md
-                lg:hover:shadow-2xl lg:hover:shadow-purple-600/20"
+                class="h-full flex flex-col mb-4 p-4 lg:p-8 rounded-3xl transition-all duration-300 card-background backdrop-blur-md shadow-lg
+                lg:hover:shadow-lg lg:hover:shadow-purple-500/20 lg:backdrop-blur-md"
               >
                 <div class="h-80 overflow-hidden rounded-2xl">
                   <a
@@ -181,7 +181,7 @@
                     <img
                       src={artwork.image}
                       alt={artwork.title}
-                      class="w-full h-full object-cover cursor-pointer scale-100 transition-all duration-300 ease-in-out hover:rotate-3 hover:scale-110 opacity-90 hover:opacity-100"
+                      class="w-full h-full object-cover transition-all duration-300 ease-in-out cursor-pointer scale-100 hover:scale-110 opacity-90 hover:opacity-100"
                       loading="lazy"
                     />
                     <div class="swiper-lazy-preloader"></div>
@@ -195,8 +195,8 @@
             <div class="swiper-slide">
               <button
                 onclick={() => routeChoice({ page: stateCtx.pages.category, slug: categoryArtworks[0].category.slug })}
-                class="group w-full h-full cursor-pointer flex flex-col mb-4 p-4 lg:p-8 rounded-3xl transition-all duration-300 bg-purple-950/20 shadow-2xl backdrop-blur-md hover:bg-purple-950/20 lg:bg-transparent lg:hover:backdrop-blur-md
-                lg:hover:shadow-2xl lg:hover:shadow-purple-600/20"
+                class="group cursor-pointer w-full h-full flex flex-col mb-4 p-4 lg:p-8 rounded-3xl transition-all duration-300 card-background backdrop-blur-md shadow-lg
+                lg:hover:shadow-lg lg:hover:shadow-purple-500/20 lg:backdrop-blur-md"
               >
                 <div
                   class="h-80 flex items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-purple-500 group-hover:border-purple-400 transition-colors"

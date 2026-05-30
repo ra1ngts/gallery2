@@ -71,6 +71,24 @@
     text-shadow: 
       0 0 10px rgba(168, 85, 247, 0.5);
   }
+
+  .card-background {
+    @apply antialiased relative z-0 overflow-hidden;
+
+    &::before {
+      content: "";
+      @apply absolute inset-0 -z-10 bg-linear-to-t from-purple-800/30 to-purple-950/20 transition-opacity duration-300;
+    }
+
+    &::after {
+      content: "";
+      @apply absolute inset-0 -z-10 bg-linear-to-t from-purple-800/20 to-purple-950/20 opacity-0 transition-opacity duration-300;
+    }
+
+    &:hover::after {
+      @apply opacity-100;
+    }
+  }
 }
 
 html {
