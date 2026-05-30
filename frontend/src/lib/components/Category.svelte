@@ -28,7 +28,7 @@
   let defaultYear = stateCtx.translation?.category.all_years;
   let selectedYear = $state(defaultYear);
 
-  let defaultSelectedTechnique = stateCtx.translation?.category.all_techniques;
+  let defaultSelectedTechnique = stateCtx.translation?.category.all_mediums;
   let selectedTechnique = $state(defaultSelectedTechnique);
 
   const years = $derived([
@@ -76,7 +76,7 @@
         </div>
 
         <div class="rounded-2xl bg-purple-950/25">
-          <div class="mt-2 text-purple-400 font-bold text-center">{stateCtx.translation?.category.technique}</div>
+          <div class="mt-2 text-purple-400 font-bold text-center">{stateCtx.translation?.category.medium}</div>
           <div class="p-2 flex flex-col gap-1">
             {#each techniques as technique}
               <button

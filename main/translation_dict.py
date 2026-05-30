@@ -17,9 +17,9 @@ def getTranslateDict():
         },
         'category': {
             'all_years': _('Все года'),
-            'all_techniques': _('Все техники'),
+            'all_mediums': _('Все техники'),
             'year': _('Год'),
-            'technique': _('Техника'),
+            'medium': _('Техника'),
             'warning': _('В категории не найдено ни одной работы')
         },
         'contact': {
