@@ -71,7 +71,7 @@ def ResultEncoder(obj):
             'name': obj.name,
             'lastname': obj.lastname,
             'image': get_thumb(obj.image, size=(300, 300), crop=True) if obj.image else None,
-            'description': obj.description,
+            'description': obj.description.replace('{age}', str(obj.age)),
             'phone': obj.phone,
             'email': obj.email,
             'whatsapp': obj.whatsapp,
@@ -142,7 +142,6 @@ def index(request):
 
             return JsonResponse({
                 'status': 'success',
-                'title': _('Галерея'),
                 'translation': getTranslateDict(),
                 'profile': ResultEncoder(Profile.get_profile_data()),
                 'artworks': [ResultEncoder(artwork) for artwork in artworks],
@@ -157,7 +156,8 @@ def index(request):
                         'help_text': str(field.field.help_text),
                         'choices': getattr(field.field, 'choices', None)
                     } for field in form
-                }
+                },
+                'age': Profile.get_profile_data().age
             })
 
         except Exception as e:
@@ -181,7 +181,7 @@ def index(request):
         'site_key': settings.RECAPTCHA_PUBLIC_KEY,
         'manifest_css': manifest.get('css', []),
         'manifest_js': manifest.get('file', ''),
-        'title': Profile.get_profile_data().get_title
+        'title': Profile.get_profile_data().title
     }
 
     return render(request, 'main/index.html', ctx)

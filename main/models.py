@@ -6,6 +6,7 @@ from django.core.validators import (
     MaxValueValidator
 )
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from filer.fields.image import FilerImageField
@@ -212,13 +213,31 @@ class Profile(Basic, BaseModelPublished, BaseModelOrderby):
         return self.name
 
     @property
-    def get_title(self):
+    def title(self):
         return f'{self.name} {self.lastname} - {_("портфолио")}'
 
     @classmethod
     def get_profile_data(cls):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
+
+    @property
+    def age(self):
+        birthday = {
+            'year': 2012,
+            'month': 8,
+            'day': 13,
+        }
+
+        date = timezone.now().date()
+        current_year = date.year
+        current_month = date.month
+        current_day = date.day
+
+        age = current_year - birthday.get('year')
+
+        return age - 1 if (current_month < birthday.get('month') or (current_month == birthday.get('month') and current_day < birthday.get('day'))) else age
+
 
     class Meta:
         verbose_name = _('Личная информация')
