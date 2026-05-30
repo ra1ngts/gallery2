@@ -12,6 +12,13 @@ def getTranslateDict():
             },
             'copyright': _('Все права защищены. Создано отцом с')
         },
+        'category': {
+            'all_years': _('Все года'),
+            'all_techniques': _('Все техники'),
+            'year': _('Год'),
+            'technique': _('Техника'),
+            'warning': _('В категории не найдено ни одной работы')
+        },
         # 'profile': {
         #     'technologies': _('Технологии'),
         #     'frontend': _('Фронтенд'),

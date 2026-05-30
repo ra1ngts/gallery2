@@ -5,7 +5,6 @@
 
   import { Fancybox } from '@fancyapps/ui/dist/fancybox/';
   import '@fancyapps/ui/dist/fancybox/fancybox.css';
-
   import '@fancyapps/ui/dist/carousel/carousel.css';
 
   const getRandomSize = () => Math.floor(Math.random() * 3) + 2;
@@ -26,11 +25,11 @@
     },
   });
 
-  let defaultYear = 'All years';
-  let selectedYear = $state('All years');
+  let defaultYear = stateCtx.translation?.category.all_years;
+  let selectedYear = $state(defaultYear);
 
-  let defaultSelectedTechnique = 'All techniques';
-  let selectedTechnique = $state('All techniques');
+  let defaultSelectedTechnique = stateCtx.translation?.category.all_techniques;
+  let selectedTechnique = $state(defaultSelectedTechnique);
 
   const years = $derived([
     defaultYear,
@@ -59,7 +58,7 @@
   <div class="col-span-1 h-fit p-4 rounded-2xl transition-all duration-300 bg-purple-950/20 hover:bg-purple-950/25">
     <div class="grid grid-cols-1 gap-4">
       <div class="rounded-2xl bg-purple-950/25">
-        <div class="mt-2 text-purple-400 font-bold text-center">Year</div>
+        <div class="mt-2 text-purple-400 font-bold text-center">{stateCtx.translation?.category.year}</div>
         <div class="p-2 flex flex-col gap-1">
           {#each years as year}
             <button
@@ -76,7 +75,7 @@
       </div>
 
       <div class="rounded-2xl bg-purple-950/25">
-        <div class="mt-2 text-purple-400 font-bold text-center">Technique</div>
+        <div class="mt-2 text-purple-400 font-bold text-center">{stateCtx.translation?.category.technique}</div>
         <div class="p-2 flex flex-col gap-1">
           {#each techniques as technique}
             <button
@@ -126,7 +125,7 @@
       </div>
     {:else}
       <div class="flex w-full items-center justify-center">
-        <div class="text-center">No artworks available in current category</div>
+        <div class="text-center">{stateCtx.translation?.category.warning}</div>
       </div>
     {/if}
   </div>
