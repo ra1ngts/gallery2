@@ -4,34 +4,50 @@
 
 @font-face {
   font-family: 'Roboto';
-  src: url('/fonts/Roboto-Bold.ttf') format('truetype');
+  src: url(fonts/Roboto-Bold.woff2) format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
+  size-adjust: 100%;
+  ascent-override: 93%;
+  descent-override: 24%;
+  line-gap-override: 0%;
 }
 
 @font-face {
   font-family: 'Roboto';
-  src: url('/fonts/Roboto-SemiBold.ttf') format('truetype');
+  src: url(fonts/Roboto-SemiBold.woff2) format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
+  size-adjust: 100%;
+  ascent-override: 93%;
+  descent-override: 24%;
+  line-gap-override: 0%;
 }
 
 @font-face {
   font-family: 'Roboto';
-  src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+  src: url(fonts/Roboto-Regular.woff2) format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+  size-adjust: 100%;
+  ascent-override: 93%;
+  descent-override: 24%;
+  line-gap-override: 0%;
 }
 
 @font-face {
   font-family: 'Roboto';
-  src: url('/fonts/Roboto-Light.ttf') format('truetype');
+  src: url(fonts/Roboto-Light.woff2) format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
+  size-adjust: 100%;
+  ascent-override: 93%;
+  descent-override: 24%;
+  line-gap-override: 0%;
 }
 
 @layer base {
@@ -94,6 +110,10 @@
 html {
   scroll-behavior: smooth;
   scrollbar-gutter: stable;
+}
+
+.grecaptcha-badge {
+  visibility: hidden !important;
 }
 
 .container {

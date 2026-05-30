@@ -4,30 +4,31 @@ import { resolve } from 'path'
 import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: '/static/svelte/assets/',
-  plugins: [tailwindcss(), svelte()],
-  resolve: {
-    alias: {
-      fonts: resolve('../static/svelte/fonts'),
-      svg: resolve('../static/svelte/svg'),
+export default defineConfig(({ command }) => {
+  return {
+    base: '/static/svelte/assets/',
+    plugins: [tailwindcss(), svelte()],
+    resolve: {
+      alias: {
+        fonts: resolve('./public/fonts'), 
+        svg: resolve('../static/svelte/svg'),
+      },
     },
-  },
-  build: {
-    outDir: resolve('../main/static/svelte/assets'),
-    assetsDir: '',
-    chunkSizeWarningLimit: 1000,
-    manifest: true,
-    emptyOutDir: true,
-    watch: {},
-  },
-  server: {
-    watch: {
-      usePolling: true,
-      interval: 100,
+    build: {
+      outDir: resolve('../main/static/svelte/assets'),
+      assetsDir: '',
+      chunkSizeWarningLimit: 1000,
+      manifest: true,
+      emptyOutDir: true,
+      watch: command === 'serve' ? {} : null,
     },
-    port: 8000,
-    hot: true,
-  },
+    server: {
+      watch: {
+        usePolling: true,
+        interval: 100,
+      },
+      port: 8000,
+      hot: true,
+    },
+  };
 });
-

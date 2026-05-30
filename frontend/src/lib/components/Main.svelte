@@ -141,7 +141,6 @@
         class:opacity-0={!isLoaded}
         class:opacity-100={isLoaded}
         onload={() => (isLoaded = true)}
-        loading="lazy"
       />
     </a>
   </div>
