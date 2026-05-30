@@ -46,20 +46,6 @@ export const routeChoice = (route) => {
     }
 };
 
-// formateDate
-// export function formateDate(date) {
-//     if (!date) return '...';
-
-//     const dateObj = new Date(date);
-
-//     if (isNaN(dateObj.getTime())) {
-//         console.error(`Error date formatting: ${date}`);
-//         return 'Date not found';
-//     }
-
-//     return dateObj.toLocaleDateString('ru-RU', { month: '2-digit', year: 'numeric' }).replace('.', ' / ');
-// }
-
 // Email address validation
 export function isEmailValidate(email) {
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -108,26 +94,3 @@ export function showToast(message, type = 'success') {
         stateCtx.toast.show = false;
     }, 3000);
 }
-
-// DATA = {
-//     year: 2012,
-//     month: 8,
-//     day: 13
-// }
-
-// function getAge() {
-//     const DATE = new Date();
-//     const CURRENT_YEAR = DATE.getFullYear();
-//     const CURRENT_MONTH = DATE.getMonth() + 1;
-//     const CURRENT_DAY = DATE.getDate();
-
-//     let age = CURRENT_YEAR - DATA.year;
-
-//     if (CURRENT_MONTH < DATA.month || (CURRENT_MONTH === DATA.month && CURRENT_DAY < DATA.day)) {
-//         age--;
-//     }
-//     console.log('age', age);
-//     return age;
-// }
-
-// getAge();
