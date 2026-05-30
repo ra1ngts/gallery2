@@ -224,6 +224,6 @@
     class:opacity-100={isLoaded}
     onload={() => (isLoaded = true)}
   >
-    <div class="text-center">No artworks available</div>
+    <div class="py-4 text-center">{stateCtx.translation?.main.warning}</div>
   </div>
 {/if}

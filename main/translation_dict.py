@@ -12,6 +12,9 @@ def getTranslateDict():
             },
             'copyright': _('Все права защищены. Создано отцом с')
         },
+        'main': {
+            'warning': _('Не найдено ни одной работы')
+        },
         'category': {
             'all_years': _('Все года'),
             'all_techniques': _('Все техники'),
@@ -19,16 +22,6 @@ def getTranslateDict():
             'technique': _('Техника'),
             'warning': _('В категории не найдено ни одной работы')
         },
-        # 'profile': {
-        #     'technologies': _('Технологии'),
-        #     'frontend': _('Фронтенд'),
-        #     'backend': _('Бэкенд'),
-        #     'tools': _('Инструменты'),
-        #     'info': _('Список навыков пуст')
-        # },
-        # 'experience': {
-        #     'info': _('Нет доступных записей')
-        # },
         'contact': {
             'errors': {
                 'name': _('Введите ваше имя'),
@@ -42,9 +35,6 @@ def getTranslateDict():
                 'submit': _('Отправить')
             }
         },
-        # 'utils': {
-        #     'present': _('по настоящее время')
-        # }
     }
 
     return TranslateDict

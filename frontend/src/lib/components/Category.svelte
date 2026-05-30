@@ -54,47 +54,47 @@
   $inspect('filteredArtworks', filteredArtworks);
 </script>
 
-<div class="grid grid-cols-5 gap-4">
-  <div class="col-span-1 h-fit p-4 rounded-2xl transition-all duration-300 bg-purple-950/20 hover:bg-purple-950/25">
-    <div class="grid grid-cols-1 gap-4">
-      <div class="rounded-2xl bg-purple-950/25">
-        <div class="mt-2 text-purple-400 font-bold text-center">{stateCtx.translation?.category.year}</div>
-        <div class="p-2 flex flex-col gap-1">
-          {#each years as year}
-            <button
-              onclick={() => (selectedYear = year)}
-              class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-xl
+{#if filteredArtworks.length > 0}
+  <div class="grid grid-cols-5 gap-4">
+    <div class="col-span-1 h-fit p-4 rounded-2xl transition-all duration-300 bg-purple-950/20 hover:bg-purple-950/25">
+      <div class="grid grid-cols-1 gap-4">
+        <div class="rounded-2xl bg-purple-950/25">
+          <div class="mt-2 text-purple-400 font-bold text-center">{stateCtx.translation?.category.year}</div>
+          <div class="p-2 flex flex-col gap-1">
+            {#each years as year}
+              <button
+                onclick={() => (selectedYear = year)}
+                class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-xl
               {selectedYear === year
-                ? 'text-purple-400 bg-purple-950 rounded-xl'
-                : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
-            >
-              {year}
-            </button>
-          {/each}
+                  ? 'text-purple-400 bg-purple-950 rounded-xl'
+                  : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
+              >
+                {year}
+              </button>
+            {/each}
+          </div>
         </div>
-      </div>
 
-      <div class="rounded-2xl bg-purple-950/25">
-        <div class="mt-2 text-purple-400 font-bold text-center">{stateCtx.translation?.category.technique}</div>
-        <div class="p-2 flex flex-col gap-1">
-          {#each techniques as technique}
-            <button
-              onclick={() => (selectedTechnique = technique)}
-              class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-xl
+        <div class="rounded-2xl bg-purple-950/25">
+          <div class="mt-2 text-purple-400 font-bold text-center">{stateCtx.translation?.category.technique}</div>
+          <div class="p-2 flex flex-col gap-1">
+            {#each techniques as technique}
+              <button
+                onclick={() => (selectedTechnique = technique)}
+                class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-xl
               {selectedTechnique === technique
-                ? 'text-purple-400 bg-purple-950 rounded-xl'
-                : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
-            >
-              {technique}
-            </button>
-          {/each}
+                  ? 'text-purple-400 bg-purple-950 rounded-xl'
+                  : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
+              >
+                {technique}
+              </button>
+            {/each}
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-span-4">
-    {#if filteredArtworks.length > 0}
+    <div class="col-span-4">
       <div
         class="w-full block py-4 mb-4 bg-purple-950/20 transition-colors duration-300 text-purple-400 rounded-2xl text-xl font-semibold text-center"
       >
@@ -123,10 +123,10 @@
           {/each}
         </MasonryGrid>
       </div>
-    {:else}
-      <div class="flex w-full items-center justify-center">
-        <div class="text-center">{stateCtx.translation?.category.warning}</div>
-      </div>
-    {/if}
+    </div>
   </div>
-</div>
+{:else}
+  <div class="flex w-full items-center justify-center">
+    <div class="py-4 text-center">{stateCtx.translation?.category.warning}</div>
+  </div>
+{/if}

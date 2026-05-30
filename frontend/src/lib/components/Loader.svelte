@@ -7,8 +7,8 @@
     margin: auto;
     width: 150px;
     height: 150px;
-    border: 2px solid var(--color-purple-300);
-    border-bottom: 2px solid var(--color-purple-600);
+    border: 2px solid var(--color-purple-400);
+    border-bottom: 2px solid var(--color-purple-500);
     border-radius: 50%;
     animation: loader 2s linear infinite;
   }
