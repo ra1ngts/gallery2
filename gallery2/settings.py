@@ -161,6 +161,16 @@ THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.filters',
 )
 
+THUMBNAIL_ALIASES = {
+    '': {
+        'optimized': {
+            'size': (1600, 0),
+            'quality': 80,
+            'extension': 'webp',
+        },
+    },
+}
+
 THUMBNAIL_BASE_DIR = 'thumbnails'
 
 THUMBNAIL_PRESERVE_EXTENSIONS = False
