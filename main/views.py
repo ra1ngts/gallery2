@@ -1,5 +1,6 @@
 import os
 
+from django.core.cache import cache
 from django.db.models import Window, F
 from django.db.models.functions import RowNumber
 from django.http import JsonResponse, Http404
@@ -82,6 +83,8 @@ def ResultEncoder(obj):
 
 
 def index(request):
+    profile = Profile.get_profile_data()
+
     if request.headers.get('Accept') == 'application/json':
         try:
             if request.method == 'POST':
@@ -131,21 +134,25 @@ def index(request):
                 row=Window(
                     expression=RowNumber(),
                     partition_by=[F('category_id')],
-                    order_by=F('id')
+                    order_by=F('id').asc()
                 )
             )
 
-            artworks = Artwork.objects.select_related(
-                'category',
-                'technique'
-            ).prefetch_related('images').filter(id__in=annotated_works.filter(row__lte=4).values('id'))
+            all_artworks = Artwork.objects.select_related('category', 'technique').prefetch_related('images')
+            artworks = all_artworks.filter(id__in=annotated_works.filter(row__lte=4).values('id'))
+            featured_work = all_artworks.filter(is_featured=True).first()
+
+            translation = cache.get('translations')
+            if translation is None:
+                translation = getTranslateDict()
+                cache.set('translations', translation, 60 * 60)
 
             return JsonResponse({
                 'status': 'success',
-                'translation': getTranslateDict(),
-                'profile': ResultEncoder(Profile.get_profile_data()),
+                'translation': translation,
+                'profile': ResultEncoder(profile),
                 'artworks': [ResultEncoder(artwork) for artwork in artworks],
-                'featured_work': ResultEncoder(Artwork.objects.filter(is_featured=True).first()),
+                'featured_work': ResultEncoder(featured_work),
                 'categories': list(Category.objects.values('slug', 'title')),
                 'form': {
                     field.name: {
@@ -157,7 +164,7 @@ def index(request):
                         'choices': getattr(field.field, 'choices', None)
                     } for field in form
                 },
-                'age': Profile.get_profile_data().age
+                'age': profile.age
             })
 
         except Exception as e:
@@ -181,7 +188,7 @@ def index(request):
         'site_key': settings.RECAPTCHA_PUBLIC_KEY,
         'manifest_css': manifest.get('css', []),
         'manifest_js': manifest.get('file', ''),
-        'title': Profile.get_profile_data().title
+        'title': profile.title
     }
 
     return render(request, 'main/index.html', ctx)
