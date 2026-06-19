@@ -28,8 +28,8 @@
   let defaultYear = stateCtx.translation?.category.all_years;
   let selectedYear = $state(defaultYear);
 
-  let defaultSelectedTechnique = stateCtx.translation?.category.all_mediums;
-  let selectedTechnique = $state(defaultSelectedTechnique);
+  let defaultSelectedMedium = stateCtx.translation?.category.all_mediums;
+  let selectedMedium = $state(defaultSelectedMedium);
 
   const years = $derived([
     defaultYear,
@@ -37,18 +37,17 @@
   ]);
   $inspect('years', years);
 
-  const techniques = $derived([
-    defaultSelectedTechnique,
-    ...[...new Set(stateCtx.artworksCategory.map((t) => t.technique.title))],
+  const mediums = $derived([
+    defaultSelectedMedium,
+    ...[...new Set(stateCtx.artworksCategory.map((t) => t.medium?.title))],
   ]);
-  $inspect('techniques', techniques);
+  $inspect('mediums', mediums);
 
   const filteredArtworks = $derived(
     stateCtx.artworksCategory.filter((artwork) => {
       const matchYear = selectedYear === defaultYear || artwork.year === selectedYear;
-      const matchTechnique =
-        selectedTechnique === defaultSelectedTechnique || artwork.technique.title === selectedTechnique;
-      return matchYear && matchTechnique;
+      const matchMedium = selectedMedium === defaultSelectedMedium || artwork.medium.title === selectedMedium;
+      return matchYear && matchMedium;
     }),
   );
   $inspect('filteredArtworks', filteredArtworks);
@@ -78,15 +77,15 @@
         <div class="rounded-2xl bg-purple-950/25">
           <div class="mt-2 text-purple-400 font-bold text-center">{stateCtx.translation?.category.medium}</div>
           <div class="p-2 flex flex-col gap-1">
-            {#each techniques as technique}
+            {#each mediums as medium}
               <button
-                onclick={() => (selectedTechnique = technique)}
+                onclick={() => (selectedMedium = medium)}
                 class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-xl
-              {selectedTechnique === technique
+              {selectedMedium === medium
                   ? 'text-purple-400 bg-purple-950 rounded-xl'
                   : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
               >
-                {technique}
+                {medium}
               </button>
             {/each}
           </div>

@@ -8,7 +8,7 @@ from tabbed_admin import TabbedModelAdmin
 from .models import (
     Artwork,
     Category,
-    Technique,
+    Medium,
     Profile,
     ArtworkImage,
 )
@@ -29,7 +29,7 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
         'year',
         'get_image',
         'category',
-        'technique'
+        'medium'
     )
     list_display_links = (
         'id',
@@ -57,7 +57,7 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
                 'description_ru', 'description_en',
                 'year',
                 'category',
-                'technique'
+                'medium'
             )
         }),
     )
@@ -104,8 +104,8 @@ class CategoryAdmin(TranslationAdmin):
     ordering = ('order_by',)
 
 
-@admin.register(Technique)
-class TechniqueAdmin(TranslationAdmin):
+@admin.register(Medium)
+class MediumAdmin(TranslationAdmin):
     list_display = (
         'id',
         'title',

@@ -1,6 +1,6 @@
 from modeltranslation.translator import register, TranslationOptions
 
-from .models import Artwork, Category, Technique, Profile
+from .models import Artwork, Category, Medium, Profile
 
 
 @register(Artwork)
@@ -11,8 +11,8 @@ class ArtworkTranslationOptions(TranslationOptions):
 class CategoryTranslationOptions(TranslationOptions):
     fields = ('title',)
 
-@register(Technique)
-class TechniqueTranslationOptions(TranslationOptions):
+@register(Medium)
+class MediumTranslationOptions(TranslationOptions):
     fields = ('title',)
 
 @register(Profile)

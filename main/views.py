@@ -16,7 +16,7 @@ from .forms import ContactForm
 from .models import (
     Artwork,
     Category,
-    Technique,
+    Medium,
     Profile
 )
 from .translation_dict import getTranslateDict
@@ -49,7 +49,7 @@ def ResultEncoder(obj):
                 get_thumb(img.image, size=(2000, 900)) for img in obj.images.all() if img.image
             ],
             'category': ResultEncoder(obj.category) if obj.category else None,
-            'technique': ResultEncoder(obj.technique) if obj.technique else None
+            'medium': ResultEncoder(obj.medium) if obj.medium else None
         }
 
     if isinstance(obj, Category):
@@ -59,7 +59,7 @@ def ResultEncoder(obj):
             'slug': obj.slug
         }
 
-    if isinstance(obj, Technique):
+    if isinstance(obj, Medium):
         return {
             'id': obj.id,
             'title': obj.title,
@@ -138,7 +138,7 @@ def index(request):
                 )
             )
 
-            all_artworks = Artwork.objects.select_related('category', 'technique').prefetch_related('images')
+            all_artworks = Artwork.objects.select_related('category', 'medium').prefetch_related('images')
             artworks = all_artworks.filter(id__in=annotated_works.filter(row__lte=4).values('id'))
             featured_work = all_artworks.filter(is_featured=True).first()
 
@@ -211,6 +211,6 @@ def category(request, slug):
             ResultEncoder(artwork) for artwork in Artwork.objects.select_related(
                 'category',
                 'image'
-            ).prefetch_related('technique').filter(is_published=True, category=category)
+            ).prefetch_related('medium').filter(is_published=True, category=category)
         ],
     })

@@ -77,10 +77,12 @@ class Artwork(Basic, BaseModelPublished, BaseModelOrderby):
         related_name='artworks_categories',
         verbose_name=_('Категория')
     )
-    technique = models.ForeignKey(
-        'Technique',
+    medium = models.ForeignKey(
+        'Medium',
         on_delete=models.PROTECT,
-        related_name='artwork_techniques',
+        null=True,
+        blank=True,
+        related_name='artwork_medium',
         verbose_name=_('Техника исполнения')
     )
     is_featured = models.BooleanField(
@@ -114,7 +116,7 @@ class Category(Basic, BaseModelPublished, BaseModelOrderby):
         verbose_name_plural = _('Категории')
 
 
-class Technique(Basic, BaseModelPublished, BaseModelOrderby):
+class Medium(Basic, BaseModelPublished, BaseModelOrderby):
     title = models.CharField(
         max_length=255,
         db_index=True,
