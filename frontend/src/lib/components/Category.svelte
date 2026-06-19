@@ -55,7 +55,7 @@
 
 {#if filteredArtworks.length > 0}
   <div class="grid grid-cols-5 gap-4">
-    <div class="col-span-1 h-fit p-4 rounded-2xl transition-all duration-300 bg-purple-950/20 hover:bg-purple-950/25">
+    <div class="col-span-1 h-fit p-4 rounded-3xl transition-all duration-300 bg-purple-950/20 hover:bg-purple-950/25">
       <div class="grid grid-cols-1 gap-4">
         <div class="rounded-2xl bg-purple-950/25">
           <div class="mt-2 text-purple-400 font-bold text-center">{stateCtx.translation?.category.year}</div>
@@ -95,7 +95,7 @@
 
     <div class="col-span-4">
       <div
-        class="w-full block py-4 mb-4 bg-purple-950/20 transition-colors duration-300 text-purple-400 rounded-2xl text-xl font-semibold text-center"
+        class="w-full block py-4 mb-4 bg-purple-950/20 transition-colors duration-300 text-purple-400 rounded-3xl text-xl font-semibold text-center"
       >
         {stateCtx.categoryTitle}
       </div>

@@ -208,12 +208,12 @@
               {#if isCategoryOpen}
                 <div
                   transition:fly={{ y: -10, duration: 300 }}
-                  class="min-w-50 absolute left-1/2 -translate-x-1/2 mt-5 p-3 bg-gray-950/90 backdrop-blur-md rounded-2xl shadow-purple-500/30 shadow-2xl"
+                  class="min-w-50 absolute left-1/2 -translate-x-1/2 mt-5 p-3 bg-gray-950/90 backdrop-blur-md rounded-3xl shadow-purple-500/30 shadow-2xl"
                 >
                   {#each stateCtx.categories as category}
                     <div>
                       <button
-                        class="w-full p-2 rounded-xl neon-glow-hover hover:bg-purple-950 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
+                        class="w-full p-2 rounded-2xl neon-glow-hover hover:bg-purple-950 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
                         category.slug
                           ? 'neon-glow-active'
                           : 'text-purple-700 cursor-pointer'}"

@@ -137,7 +137,7 @@
       <img
         src={stateCtx.featuredWork.image}
         alt={stateCtx.featuredWork.title}
-        class="w-full h-full object-cover rounded-3xl cursor-pointer"
+        class="w-full h-full object-cover rounded-2xl cursor-pointer"
         class:opacity-0={!isLoaded}
         class:opacity-100={isLoaded}
         onload={() => (isLoaded = true)}
@@ -157,7 +157,7 @@
       {#if categoryArtworks.length > 0}
         <button
           onclick={() => routeChoice({ page: stateCtx.pages.category, slug: categoryArtworks[0].category.slug })}
-          class="w-full block cursor-pointer py-4 mb-4 bg-purple-950/20 text-purple-500 neon-glow-hover rounded-2xl text-xl font-semibold text-center"
+          class="w-full block cursor-pointer py-4 mb-4 bg-purple-950/20 text-purple-500 neon-glow-hover rounded-3xl text-xl font-semibold text-center"
         >
           {categoryArtworks[0].category.title}
         </button>
