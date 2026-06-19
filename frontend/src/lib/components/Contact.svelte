@@ -85,12 +85,15 @@
         }
 
         stateCtx.formErrors = cleanedErrors;
-        console.log('stateCtx.formErrors', stateCtx.formErrors);
 
+        const errorMessage = result.message;
+        showToast(errorMessage, 'error');
+        console.log('stateCtx.formErrors', stateCtx.formErrors);
         console.log(result.message);
       }
     } catch (error) {
       console.error('Network Error:', error);
+      showToast('Network Error', 'error');
     } finally {
       stateCtx.isSubmitting = false;
     }

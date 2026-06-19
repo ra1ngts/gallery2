@@ -14,7 +14,6 @@ export const stateCtx = $state({
         contact: 'contact',
         loading: 'loading'
     },
-    activeSection: 'main',
     form: {},
     contactsData: {
         name: '',
@@ -30,6 +29,7 @@ export const stateCtx = $state({
         message: '',
         type: 'success'
     },
+    activeSection: 'main',
 });
 
 export const contactForm = (recaptcha_token = null) => {
