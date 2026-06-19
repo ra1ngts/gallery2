@@ -5,7 +5,7 @@ export const stateCtx = $state({
     artworksCategory: [],
     featuredWork: {},
     categories: [],
-    page: 'main',
+    page: 'loading',
     categorySlug: null,
     pages: {
         main: 'main',
