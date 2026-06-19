@@ -110,9 +110,61 @@
       observer.disconnect();
     };
   });
+
+  let mouseX = $state(-100);
+  let mouseY = $state(-100);
+  let isHovered = $state(false);
+  let isFancyboxOpen = $state(false);
+
+  function handleMouseMove(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    const target = e.target;
+    if (!target) return;
+
+    isFancyboxOpen = !!document.querySelector('.fancybox__container');
+
+    const isClickable =
+      target.closest('a') ||
+      target.closest('button') ||
+      target.closest('[role="button"]') ||
+      target.closest('.swiper-button-next') ||
+      target.closest('.swiper-button-prev') ||
+      target.closest('.swiper-pagination-bullet');
+
+    isHovered = !!isClickable;
+  }
 </script>
 
-<svelte:window onclick={closeGoToCategory} />
+<svelte:window onclick={closeGoToCategory} onmousemove={handleMouseMove} />
+
+{#if !isFancyboxOpen}
+  <div
+    class="fixed pointer-events-none rounded-full border-2"
+    style="
+    z-index: 9999999;
+    transform: translate(calc({mouseX}px - 50%), calc({mouseY}px - 50%));
+    transition: width 0.3s ease-out, height 0.3s ease-out, background-color 0.3s ease-out;
+    width: {isHovered ? '24px' : '20px'}; 
+    height: {isHovered ? '24px' : '20px'};
+    background-color: {isHovered ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.05)'};
+    border-color: #ffffff;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.35);
+  "
+  >
+    <div
+      class="absolute inset-0 rounded-full transition-opacity duration-700 ease-out"
+      style="
+      opacity: {isHovered ? '1' : '0'};
+      box-shadow: 
+        0 0 25px 6px rgba(255, 255, 255, 0.8), 
+        0 0 50px 15px rgba(255, 255, 255, 0.35), 
+        inset 0 0 8px rgba(255, 255, 255, 0.6);
+    "
+    ></div>
+  </div>
+{/if}
 
 <div class="fixed top-0 z-100 w-full bg-linear-to-b from-gray-950/90 to-purple-950/60 backdrop-blur-md">
   <div class="container p-4">
@@ -315,3 +367,19 @@
     </div>
   </footer>
 </div>
+
+<style>
+  :global(body),
+  :global(body *) {
+    cursor: none !important;
+  }
+  :global(.fancybox__container),
+  :global(.fancybox__container *) {
+    cursor: auto !important;
+  }
+  :global(.fancybox__container a),
+  :global(.fancybox__container button),
+  :global(.fancybox__container .f-button) {
+    cursor: pointer !important;
+  }
+</style>
