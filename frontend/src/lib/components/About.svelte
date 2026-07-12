@@ -16,5 +16,5 @@
     />
   </div>
 
-  <div class="col-span-2">{stateCtx.profile.description}</div>
+  <div class="col-span-2 text-xs sm:text-base">{stateCtx.profile.description}</div>
 </div>

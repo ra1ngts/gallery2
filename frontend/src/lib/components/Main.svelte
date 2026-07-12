@@ -121,10 +121,10 @@
 
 <div
   transition:fade={{ duration: 500 }}
-  class="mb-4 overflow-hidden rounded-3xl transition-all duration-300 card-background backdrop-blur-md py-0 px-8 opacity-90 hover:opacity-100 lg:hover:shadow-lg lg:hover:shadow-purple-500/20"
+  class="mb-4 overflow-hidden rounded-3xl transition-all duration-300 card-background backdrop-blur-md py-0 px-4 lg:px-8 opacity-90 hover:opacity-100 lg:hover:shadow-lg lg:hover:shadow-purple-500/20"
 >
   <div
-    class="p-4 items-center text-center font-semibold"
+    class="p-2 sm:p-4 items-center text-center font-semibold"
     class:opacity-0={!isLoaded}
     class:opacity-100={isLoaded}
     onload={() => (isLoaded = true)}
@@ -132,7 +132,7 @@
     {stateCtx.featuredWork.title} ({stateCtx.featuredWork.year})
   </div>
 
-  <div class="h-170">
+  <div class="h-100 sm:h-170">
     <a href={stateCtx.featuredWork.image} data-fancybox="featured-{stateCtx.featuredWork.id}">
       <img
         src={stateCtx.featuredWork.image}
@@ -145,7 +145,7 @@
     </a>
   </div>
 
-  <div class="p-4 items-center text-center">
+  <div class="p-2 sm:p-4 items-center text-center">
     {stateCtx.featuredWork.description}
   </div>
 </div>

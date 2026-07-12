@@ -171,14 +171,14 @@
 
   <div class="fixed top-0 z-100 w-full bg-linear-to-b from-gray-950/90 to-purple-950/60 backdrop-blur-md">
     <div class="container p-4">
-      <nav class="grid grid-cols-2">
+      <nav class="flex items-center justify-between gap-4">
         <div
           transition:fade={{ duration: 1500 }}
-          class="flex items-center gap-4 font-bold text-2xl bg-linear-to-r from-purple-400 to-purple-700 bg-clip-text text-transparent [&_svg]:h-7 [&_svg]:w-7 [&_svg]:fill-purple-500 [&_svg]:hover:fill-purple-400 [&_svg]:transition-colors [&_svg]:duration-300"
+          class="flex items-center gap-2 md:gap-4 font-bold text-2xl bg-linear-to-r from-purple-400 to-purple-700 bg-clip-text text-transparent sm:[&_svg]:h-7 sm:[&_svg]:w-7 [&_svg]:h-6 [&_svg]:w-6 [&_svg]:fill-purple-500 [&_svg]:hover:fill-purple-400 [&_svg]:transition-colors [&_svg]:duration-300"
         >
           {#if stateCtx.profile}
             {#if stateCtx.profile?.name || stateCtx.profile?.lastname}
-              <div class="text-3xl">{stateCtx.profile.name ?? ''} {stateCtx.profile.lastname ?? ''}</div>
+              <div class="text-sm sm:text-2xl">{stateCtx.profile.name ?? ''} {stateCtx.profile.lastname ?? ''}</div>
             {/if}
 
             <div class="flex gap-2">
@@ -241,52 +241,62 @@
         </div>
 
         <div class="flex items-center gap-4 overflow-visible">
-          {#each menuSections as section}
-            {#if section.id !== 'category'}
-              <div class="flex gap-2 relative">
-                <button
-                  class="neon-glow-hover text-sm sm:text-base md:text-xl font-semibold {stateCtx.page ===
-                    stateCtx.pages.main && stateCtx.activeSection === section.id
-                    ? 'neon-glow-active'
-                    : 'text-purple-700 cursor-pointer'}"
-                  onclick={() => scrollTo(section.id)}>{section.title}</button
-                >
-              </div>
-            {/if}
-
-            {#if section.id === 'category'}
-              <div class="relative inline-block" onclick={(e) => e.stopPropagation()} aria-hidden="true">
-                <button
-                  class="neon-glow-hover text-sm sm:text-base md:text-xl font-semibold cursor-pointer {stateCtx.page ===
-                  section.id
-                    ? 'neon-glow-active'
-                    : 'text-purple-700'}"
-                  onclick={goToCategory}
-                >
-                  {section.title}
-                </button>
-                {#if isCategoryOpen}
-                  <div
-                    transition:fly={{ y: -10, duration: 300 }}
-                    class="min-w-50 absolute left-1/2 -translate-x-1/2 mt-5 p-3 bg-gray-950/90 backdrop-blur-md rounded-3xl shadow-purple-500/30 shadow-2xl"
+          <div class="hidden md:flex gap-4 items-center">
+            {#each menuSections as section}
+              {#if section.id !== 'category'}
+                <div class="flex gap-2 relative">
+                  <button
+                    class="neon-glow-hover text-xl font-semibold {stateCtx.page === stateCtx.pages.main &&
+                    stateCtx.activeSection === section.id
+                      ? 'neon-glow-active'
+                      : 'text-purple-700 cursor-pointer'}"
+                    onclick={() => scrollTo(section.id)}>{section.title}</button
                   >
-                    {#each stateCtx.categories as category}
-                      <div>
-                        <button
-                          class="w-full p-2 rounded-2xl neon-glow-hover hover:bg-purple-950 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
-                          category.slug
-                            ? 'neon-glow-active'
-                            : 'text-purple-700 cursor-pointer'}"
-                          onclick={() => (routeChoice({ page: section.id, slug: category.slug }), closeGoToCategory())}
-                          >{category.title}</button
-                        >
-                      </div>
-                    {/each}
-                  </div>
-                {/if}
-              </div>
-            {/if}
-          {/each}
+                </div>
+              {/if}
+
+              {#if section.id === 'category'}
+                <div class="relative inline-block" onclick={(e) => e.stopPropagation()} aria-hidden="true">
+                  <button
+                    class="neon-glow-hover text-xl font-semibold cursor-pointer {stateCtx.page === section.id
+                      ? 'neon-glow-active'
+                      : 'text-purple-700'}"
+                    onclick={goToCategory}
+                  >
+                    {section.title}
+                  </button>
+                  {#if isCategoryOpen}
+                    <div
+                      transition:fly={{ y: -10, duration: 300 }}
+                      class="min-w-50 absolute left-1/2 -translate-x-1/2 mt-5 p-3 bg-gray-950/90 backdrop-blur-md rounded-3xl shadow-purple-500/30 shadow-2xl"
+                    >
+                      {#each stateCtx.categories as category}
+                        <div>
+                          <button
+                            class="w-full p-2 rounded-2xl neon-glow-hover hover:bg-purple-950 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
+                            category.slug
+                              ? 'neon-glow-active'
+                              : 'text-purple-700 cursor-pointer'}"
+                            onclick={() => (
+                              routeChoice({ page: section.id, slug: category.slug }), closeGoToCategory()
+                            )}>{category.title}</button
+                          >
+                        </div>
+                      {/each}
+                    </div>
+                  {/if}
+                </div>
+              {/if}
+            {/each}
+          </div>
+
+          <div class="flex md:hidden">
+            <button class="text-purple-500">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
         </div>
       </nav>
     </div>
@@ -312,10 +322,12 @@
     {/if}
 
     <footer>
-      <div class="flex py-8 items-center justify-center text-purple-950 gap-2 transition-colors duration-300 group">
+      <div
+        class="flex flex-col sm:flex-row py-8 items-center justify-center text-purple-950 gap-2 transition-colors duration-300 group"
+      >
         <a
           href="mailto:{stateCtx.profile.email}"
-          class="flex items-center gap-2 transition-colors duration-300 group-hover:text-purple-400"
+          class="flex items-center gap-2 text-xs sm:text-base transition-colors duration-300 group-hover:text-purple-400"
           aria-label="Mail to: {stateCtx.profile.email}"
         >
           <svg
@@ -336,7 +348,7 @@
 
         <a
           href="mailto:david.khurts@gmail.com"
-          class="flex items-center gap-2 transition-colors duration-300 group-hover:text-purple-400"
+          class="flex items-center gap-2 text-xs sm:text-base transition-colors duration-300 group-hover:text-purple-400"
           aria-label="Mail to: david.khurts@gmail.com"
         >
           {stateCtx.translation?.app.copyright}
