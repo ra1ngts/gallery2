@@ -52,6 +52,10 @@
     isOpen = !isOpen;
   };
 
+  const closeMobileMenu = () => {
+    isOpen = false;
+  };
+
   let isCategoryOpen = $state(false);
 
   const goToCategory = () => {
@@ -317,51 +321,62 @@
       transition:fly={{ y: -50, duration: 300 }}
       class="fixed inset-0 z-90 pt-20 bg-purple-900/20 bg-linear-to-b from-gray-950/90 to-purple-950/60 backdrop-blur-md p-4"
     >
-      {#each menuSections as section}
-        {#if section.id !== 'category'}
-          <div class="flex gap-2 relative">
-            <button
-              class="neon-glow-hover text-xl font-semibold {stateCtx.page === stateCtx.pages.main &&
-              stateCtx.activeSection === section.id
-                ? 'neon-glow-active'
-                : 'text-purple-700 cursor-pointer'}"
-              onclick={() => scrollTo(section.id)}>{section.title}</button
-            >
-          </div>
-        {/if}
-
-        {#if section.id === 'category'}
-          <div class="relative inline-block" onclick={(e) => e.stopPropagation()} aria-hidden="true">
-            <button
-              class="neon-glow-hover text-xl font-semibold cursor-pointer {stateCtx.page === section.id
-                ? 'neon-glow-active'
-                : 'text-purple-700'}"
-              onclick={goToCategory}
-            >
-              {section.title}
-            </button>
-            {#if isCategoryOpen}
-              <div
-                transition:fly={{ y: -10, duration: 300 }}
-                class="min-w-50 absolute left-1/2 -translate-x-1/2 mt-5 p-3 bg-gray-950/90 backdrop-blur-md rounded-3xl shadow-purple-500/30 shadow-2xl"
+      <div class="flex flex-col gap-4">
+        {#each menuSections as section}
+          {#if section.id !== 'category'}
+            <div class="relative">
+              <button
+                class="neon-glow-hover text-xl font-semibold {stateCtx.page === stateCtx.pages.main &&
+                stateCtx.activeSection === section.id
+                  ? 'neon-glow-active'
+                  : 'text-purple-700 cursor-pointer'}"
+                onclick={() => {
+                  scrollTo(section.id);
+                  closeMobileMenu();
+                }}>{section.title}</button
               >
+            </div>
+          {/if}
+
+          {#if section.id === 'category'}
+            <div class="relative">
+              <button class="neon-glow-hover text-xl font-semibold text-purple-700" onclick={goToCategory}>
+                {section.title}
+              </button>
+
+              <div class="my-2 space-y-2">
                 {#each stateCtx.categories as category}
-                  <div>
-                    <button
-                      class="w-full p-2 rounded-2xl neon-glow-hover hover:bg-purple-950 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
-                      category.slug
-                        ? 'neon-glow-active'
-                        : 'text-purple-700 cursor-pointer'}"
-                      onclick={() => (routeChoice({ page: section.id, slug: category.slug }), closeGoToCategory())}
-                      >{category.title}</button
-                    >
-                  </div>
+                  <button
+                    class="
+                    block
+                    w-full
+                    text-left
+                    p-2
+                    pl-6
+                    rounded-3xl
+                    neon-glow-hover
+                    hover:bg-purple-950
+                    text-base
+                    font-semibold
+                    {stateCtx.categorySlug === category.slug ? 'neon-glow-active' : 'text-purple-700'}
+                  "
+                    onclick={() => (
+                      routeChoice({
+                        page: section.id,
+                        slug: category.slug,
+                      }),
+                      closeGoToCategory(),
+                      closeMobileMenu()
+                    )}
+                  >
+                    {category.title}
+                  </button>
                 {/each}
               </div>
-            {/if}
-          </div>
-        {/if}
-      {/each}
+            </div>
+          {/if}
+        {/each}
+      </div>
     </div>
   {/if}
 
