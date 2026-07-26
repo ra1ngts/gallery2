@@ -46,6 +46,12 @@
     }
   };
 
+  let isOpen = $state(false);
+
+  const toggleMobileMenu = () => {
+    isOpen = !isOpen;
+  };
+
   let isCategoryOpen = $state(false);
 
   const goToCategory = () => {
@@ -240,67 +246,124 @@
           {/if}
         </div>
 
-        <div class="flex items-center gap-4 overflow-visible">
-          <div class="hidden md:flex gap-4 items-center">
-            {#each menuSections as section}
-              {#if section.id !== 'category'}
-                <div class="flex gap-2 relative">
-                  <button
-                    class="neon-glow-hover text-xl font-semibold {stateCtx.page === stateCtx.pages.main &&
-                    stateCtx.activeSection === section.id
-                      ? 'neon-glow-active'
-                      : 'text-purple-700 cursor-pointer'}"
-                    onclick={() => scrollTo(section.id)}>{section.title}</button
-                  >
-                </div>
-              {/if}
+        <!-- Desktop menu -->
+        <div class="hidden md:flex items-center gap-4 overflow-visible">
+          {#each menuSections as section}
+            {#if section.id !== 'category'}
+              <div class="flex gap-2 relative">
+                <button
+                  class="neon-glow-hover text-xl font-semibold {stateCtx.page === stateCtx.pages.main &&
+                  stateCtx.activeSection === section.id
+                    ? 'neon-glow-active'
+                    : 'text-purple-700 cursor-pointer'}"
+                  onclick={() => scrollTo(section.id)}>{section.title}</button
+                >
+              </div>
+            {/if}
 
-              {#if section.id === 'category'}
-                <div class="relative inline-block" onclick={(e) => e.stopPropagation()} aria-hidden="true">
-                  <button
-                    class="neon-glow-hover text-xl font-semibold cursor-pointer {stateCtx.page === section.id
-                      ? 'neon-glow-active'
-                      : 'text-purple-700'}"
-                    onclick={goToCategory}
+            {#if section.id === 'category'}
+              <div class="relative inline-block" onclick={(e) => e.stopPropagation()} aria-hidden="true">
+                <button
+                  class="neon-glow-hover text-xl font-semibold cursor-pointer {stateCtx.page === section.id
+                    ? 'neon-glow-active'
+                    : 'text-purple-700'}"
+                  onclick={goToCategory}
+                >
+                  {section.title}
+                </button>
+                {#if isCategoryOpen}
+                  <div
+                    transition:fly={{ y: -10, duration: 300 }}
+                    class="min-w-50 absolute left-1/2 -translate-x-1/2 mt-5 p-3 bg-gray-950/90 backdrop-blur-md rounded-3xl shadow-purple-500/30 shadow-2xl"
                   >
-                    {section.title}
-                  </button>
-                  {#if isCategoryOpen}
-                    <div
-                      transition:fly={{ y: -10, duration: 300 }}
-                      class="min-w-50 absolute left-1/2 -translate-x-1/2 mt-5 p-3 bg-gray-950/90 backdrop-blur-md rounded-3xl shadow-purple-500/30 shadow-2xl"
-                    >
-                      {#each stateCtx.categories as category}
-                        <div>
-                          <button
-                            class="w-full p-2 rounded-2xl neon-glow-hover hover:bg-purple-950 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
-                            category.slug
-                              ? 'neon-glow-active'
-                              : 'text-purple-700 cursor-pointer'}"
-                            onclick={() => (
-                              routeChoice({ page: section.id, slug: category.slug }), closeGoToCategory()
-                            )}>{category.title}</button
-                          >
-                        </div>
-                      {/each}
-                    </div>
-                  {/if}
-                </div>
-              {/if}
-            {/each}
-          </div>
+                    {#each stateCtx.categories as category}
+                      <div>
+                        <button
+                          class="w-full p-2 rounded-2xl neon-glow-hover hover:bg-purple-950 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
+                          category.slug
+                            ? 'neon-glow-active'
+                            : 'text-purple-700 cursor-pointer'}"
+                          onclick={() => (routeChoice({ page: section.id, slug: category.slug }), closeGoToCategory())}
+                          >{category.title}</button
+                        >
+                      </div>
+                    {/each}
+                  </div>
+                {/if}
+              </div>
+            {/if}
+          {/each}
+        </div>
 
-          <div class="flex md:hidden">
-            <button class="text-purple-500">
-              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Mobile menu -->
+        <div class="flex md:hidden items-center relative">
+          <button class="text-purple-500 focus:outline-none" aria-label="mobile-menu" onclick={toggleMobileMenu}>
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {#if !isOpen}
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
+              {:else}
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              {/if}
+            </svg>
+          </button>
         </div>
       </nav>
     </div>
   </div>
+
+  <!-- Mobile menu -->
+  {#if isOpen}
+    <div
+      transition:fly={{ y: -50, duration: 300 }}
+      class="fixed inset-0 z-90 pt-20 bg-purple-900/20 bg-linear-to-b from-gray-950/90 to-purple-950/60 backdrop-blur-md p-4"
+    >
+      {#each menuSections as section}
+        {#if section.id !== 'category'}
+          <div class="flex gap-2 relative">
+            <button
+              class="neon-glow-hover text-xl font-semibold {stateCtx.page === stateCtx.pages.main &&
+              stateCtx.activeSection === section.id
+                ? 'neon-glow-active'
+                : 'text-purple-700 cursor-pointer'}"
+              onclick={() => scrollTo(section.id)}>{section.title}</button
+            >
+          </div>
+        {/if}
+
+        {#if section.id === 'category'}
+          <div class="relative inline-block" onclick={(e) => e.stopPropagation()} aria-hidden="true">
+            <button
+              class="neon-glow-hover text-xl font-semibold cursor-pointer {stateCtx.page === section.id
+                ? 'neon-glow-active'
+                : 'text-purple-700'}"
+              onclick={goToCategory}
+            >
+              {section.title}
+            </button>
+            {#if isCategoryOpen}
+              <div
+                transition:fly={{ y: -10, duration: 300 }}
+                class="min-w-50 absolute left-1/2 -translate-x-1/2 mt-5 p-3 bg-gray-950/90 backdrop-blur-md rounded-3xl shadow-purple-500/30 shadow-2xl"
+              >
+                {#each stateCtx.categories as category}
+                  <div>
+                    <button
+                      class="w-full p-2 rounded-2xl neon-glow-hover hover:bg-purple-950 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
+                      category.slug
+                        ? 'neon-glow-active'
+                        : 'text-purple-700 cursor-pointer'}"
+                      onclick={() => (routeChoice({ page: section.id, slug: category.slug }), closeGoToCategory())}
+                      >{category.title}</button
+                    >
+                  </div>
+                {/each}
+              </div>
+            {/if}
+          </div>
+        {/if}
+      {/each}
+    </div>
+  {/if}
 
   <div class="container pt-20">
     {#if stateCtx.page === stateCtx.pages.main}
