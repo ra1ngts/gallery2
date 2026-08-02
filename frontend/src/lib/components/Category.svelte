@@ -121,12 +121,14 @@
 
       <!-- Mobile filters -->
       {#if isShown}
-        <div
-          transition:fly={{ y: -50, duration: 300 }}
-          onclick={closeMobileMenu}
-          class="fixed inset-0 z-50 pt-20 bg-purple-900/20 bg-linear-to-b from-gray-950/90 to-purple-950/60 backdrop-blur-md p-4"
-        >
-          <div class="flex flex-col gap-4" onclick={(e) => e.stopPropagation()}>
+        <div transition:fly={{ y: -50, duration: 300 }} class="fixed inset-0 z-50 pt-20 p-4">
+          <button
+            type="button"
+            aria-label="Close filters"
+            onclick={closeMobileMenu}
+            class="absolute inset-0 bg-purple-900/20 bg-linear-to-b from-gray-950/90 to-purple-950/60 backdrop-blur-md"
+          ></button>
+          <div class="relative z-10 flex flex-col gap-4">
             <div class="grid grid-cols-1 gap-4">
               <div class="rounded-3xl bg-purple-950/25">
                 <div class="mt-2 text-purple-400 font-bold text-center text-sm lg:text-base">
