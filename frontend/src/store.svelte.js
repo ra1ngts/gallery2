@@ -30,6 +30,8 @@ export const stateCtx = $state({
         type: 'success'
     },
     activeSection: 'main',
+    locale: 'en',
+    translation: {}
 });
 
 export const contactForm = (recaptcha_token = null) => {

@@ -5,7 +5,7 @@ from django.db.models import Window, F
 from django.db.models.functions import RowNumber
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404, render
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, activate
 from easy_thumbnails.files import get_thumbnailer
 
 import requests
@@ -85,6 +85,9 @@ def ResultEncoder(obj):
 def index(request):
     profile = Profile.get_profile_data()
 
+    lang = request.GET.get('lang', request.LANGUAGE_CODE)
+    activate(lang)
+
     if request.headers.get('Accept') == 'application/json':
         try:
             if request.method == 'POST':
@@ -142,14 +145,18 @@ def index(request):
             artworks = all_artworks.filter(id__in=annotated_works.filter(row__lte=4).values('id'))
             featured_work = all_artworks.filter(is_featured=True).first()
 
-            translation = cache.get('translations')
-            if translation is None:
-                translation = getTranslateDict()
-                cache.set('translations', translation, 60 * 60)
+            cache_key = f'translations_{lang}'
+
+            current_dict = cache.get(cache_key)
+
+            if current_dict is None:
+                current_dict = getTranslateDict()
+                cache.set(cache_key, current_dict, 60 * 60)
 
             return JsonResponse({
                 'status': 'success',
-                'translation': translation,
+                'translation': current_dict,
+                'locale': lang,
                 'profile': ResultEncoder(profile),
                 'artworks': [ResultEncoder(artwork) for artwork in artworks],
                 'featured_work': ResultEncoder(featured_work),

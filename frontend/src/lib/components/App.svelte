@@ -10,12 +10,16 @@
   import Contact from './Contact.svelte';
   import Loader from './Loader.svelte';
   import Toast from './Toast.svelte';
+  import enFlag from 'svg/en.svg';
+  import ruFlag from 'svg/ru.svg';
 
-  const getMain = async () => {
+  const getMain = async (lang = '') => {
     try {
       stateCtx.page = stateCtx.pages.loading;
 
-      const response = await fetch('/', {
+      const url = lang ? `/?lang=${lang}` : '/';
+
+      const response = await fetch(url, {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -35,6 +39,7 @@
         stateCtx.categories = data.categories;
         stateCtx.form = data.form;
         stateCtx.translation = data.translation;
+        stateCtx.locale = data.locale;
         stateCtx.page = stateCtx.pages.main;
         console.log('index (GET) successfully sending:', data);
       } else {
@@ -145,6 +150,20 @@
 
     isHovered = !!isClickable;
   }
+
+  let isLangSwitcherOpen = $state(false);
+
+  const avalibleLanguages = [
+    { code: 'en', url: enFlag },
+    { code: 'ru', url: ruFlag },
+  ];
+
+  let currentLanguage = $derived(avalibleLanguages.find((l) => l.code === stateCtx.locale) || avalibleLanguages[0]);
+
+  const selectLanguage = (code) => {
+    getMain(code);
+    isLangSwitcherOpen = false;
+  };
 </script>
 
 <svelte:window onclick={closeGoToCategory} onmousemove={handleMouseMove} />
@@ -252,6 +271,35 @@
 
         <!-- Desktop menu -->
         <div class="hidden md:flex items-center gap-4 overflow-visible">
+          {#if isLangSwitcherOpen}
+            <div class="overlay" onclick={() => false} role="presentation"></div>
+          {/if}
+
+          <div class="custom-select">
+            <button class="select-trigger" onclick={() => (isLangSwitcherOpen = !isLangSwitcherOpen)}>
+              <img src={currentLanguage.url} alt={currentLanguage.code} class="flag-icon" />
+              <span class="label">{currentLanguage.code}</span>
+              <span class="arrow" class:rotated={isLangSwitcherOpen}>▼</span>
+            </button>
+
+            {#if isLangSwitcherOpen}
+              <ul class="select-options">
+                {#each avalibleLanguages as lang}
+                  <li>
+                    <button
+                      class="option-btn"
+                      class:selected={lang.code === stateCtx.locale}
+                      onclick={() => selectLanguage(lang.code)}
+                    >
+                      <img src={lang.url} alt={lang.code} class="flag-icon" />
+                      <span>{lang.code}</span>
+                    </button>
+                  </li>
+                {/each}
+              </ul>
+            {/if}
+          </div>
+
           {#each menuSections as section}
             {#if section.id !== 'category'}
               <div class="flex gap-2 relative">
@@ -480,5 +528,77 @@
   :global(.fancybox__container button),
   :global(.fancybox__container .f-button) {
     cursor: pointer !important;
+  }
+  .custom-select {
+    position: relative;
+    width: 60px;
+    z-index: 999;
+  }
+  .select-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 6px;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .flag-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  }
+  .arrow {
+    font-size: 8px;
+    color: #666;
+    transition: transform 0.2s ease;
+  }
+  .arrow.rotated {
+    transform: rotate(180deg);
+  }
+  .select-options {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin: 0;
+    padding: 4px 0;
+    list-style: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .option-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 6px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .option-btn:hover {
+    background-color: #f5f5f5;
+  }
+  .option-btn.selected {
+    background-color: #e6f7ff;
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99;
   }
 </style>
