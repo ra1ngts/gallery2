@@ -450,6 +450,43 @@
             </div>
           {/if}
         {/each}
+
+        <div class="relative z-999 px-2 w-fit mt-5">
+          {#if isLangSwitcherOpen}
+            <div onclick={() => false} role="presentation"></div>
+          {/if}
+          <button
+            class="flex cursor-pointer justify-center items-center"
+            onclick={(e) => {
+              e.stopPropagation();
+              isCategoryOpen = false;
+              isLangSwitcherOpen = !isLangSwitcherOpen;
+            }}
+          >
+            <img src={currentLanguage.url} alt={currentLanguage.code} class="w-7 h-7" />
+          </button>
+
+          {#if isLangSwitcherOpen}
+            <ul
+              transition:fly={{ x: -10, duration: 300 }}
+              class="absolute w-24 p-2 left-full top-1/2 -translate-y-1/2 gap-2 bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl shadow-purple-500/30 shadow-2xl items-center justify-center flex"
+            >
+              {#each avalibleLanguages as lang}
+                <li>
+                  <button
+                    class="option-btn h-8 w-8 neon-glow-hover flex shrink-0 items-center justify-center {lang.code ===
+                    stateCtx.locale
+                      ? 'bg-purple-700 border-2 border-purple-700 rounded-full'
+                      : 'border-2 border-transparent hover:bg-purple-500 hover:rounded-full'}"
+                    onclick={() => selectLanguage(lang.code)}
+                  >
+                    <img src={lang.url} alt={lang.code} class="w-7 h-7" />
+                  </button>
+                </li>
+              {/each}
+            </ul>
+          {/if}
+        </div>
       </div>
     </div>
   {/if}
