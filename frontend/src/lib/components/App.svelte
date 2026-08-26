@@ -153,6 +153,10 @@
 
   let isLangSwitcherOpen = $state(false);
 
+  const closeLangSwitcher = () => {
+    isLangSwitcherOpen = false;
+  };
+
   const avalibleLanguages = [
     { code: 'en', url: enFlag },
     { code: 'ru', url: ruFlag },
@@ -166,7 +170,13 @@
   };
 </script>
 
-<svelte:window onclick={closeGoToCategory} onmousemove={handleMouseMove} />
+<svelte:window
+  onclick={() => {
+    closeGoToCategory();
+    closeLangSwitcher();
+  }}
+  onmousemove={handleMouseMove}
+/>
 
 {#if stateCtx.page === stateCtx.pages.loading}
   <Loader />
@@ -272,27 +282,36 @@
         <!-- Desktop menu -->
         <div class="hidden md:flex items-center gap-4 overflow-visible">
           {#if isLangSwitcherOpen}
-            <div class="overlay" onclick={() => false} role="presentation"></div>
+            <div onclick={() => false} role="presentation"></div>
           {/if}
 
-          <div class="custom-select">
-            <button class="select-trigger" onclick={() => (isLangSwitcherOpen = !isLangSwitcherOpen)}>
-              <img src={currentLanguage.url} alt={currentLanguage.code} class="flag-icon" />
-              <span class="label">{currentLanguage.code}</span>
-              <span class="arrow" class:rotated={isLangSwitcherOpen}>▼</span>
+          <div class="relative z-999 px-2">
+            <button
+              class="flex cursor-pointer justify-center items-center"
+              onclick={(e) => {
+                e.stopPropagation();
+                isCategoryOpen = false;
+                isLangSwitcherOpen = !isLangSwitcherOpen;
+              }}
+            >
+              <img src={currentLanguage.url} alt={currentLanguage.code} class="w-7 h-7" />
             </button>
 
             {#if isLangSwitcherOpen}
-              <ul class="select-options">
+              <ul
+                transition:fly={{ y: -10, duration: 300 }}
+                class="absolute w-16 p-2 left-1/2 -translate-x-1/2 mt-5 gap-2 bg-gray-950/90 backdrop-blur-md rounded-3xl shadow-purple-500/30 shadow-2xl items-center justify-center flex flex-col"
+              >
                 {#each avalibleLanguages as lang}
                   <li>
                     <button
-                      class="option-btn"
-                      class:selected={lang.code === stateCtx.locale}
+                      class="option-btn h-8 w-8 neon-glow-hover flex shrink-0 items-center justify-center {lang.code ===
+                      stateCtx.locale
+                        ? 'bg-purple-700 border-2 border-purple-700 rounded-full'
+                        : 'border-2 border-transparent hover:bg-purple-500 hover:rounded-full'}"
                       onclick={() => selectLanguage(lang.code)}
                     >
-                      <img src={lang.url} alt={lang.code} class="flag-icon" />
-                      <span>{lang.code}</span>
+                      <img src={lang.url} alt={lang.code} class="w-7 h-7" />
                     </button>
                   </li>
                 {/each}
@@ -314,18 +333,24 @@
             {/if}
 
             {#if section.id === 'category'}
-              <div class="relative inline-block" onclick={(e) => e.stopPropagation()} aria-hidden="true">
+              <div class="relative inline-block" aria-hidden="true">
                 <button
                   class="neon-glow-hover text-xl font-semibold cursor-pointer {stateCtx.page === section.id
                     ? 'neon-glow-active'
                     : 'text-purple-700'}"
-                  onclick={goToCategory}
+                  onclick={(e) => {
+                    e.stopPropagation();
+                    isLangSwitcherOpen = false;
+                    goToCategory();
+                  }}
                 >
                   {section.title}
                 </button>
                 {#if isCategoryOpen}
                   <div
                     transition:fly={{ y: -10, duration: 300 }}
+                    onclick={(e) => e.stopPropagation()}
+                    aria-hidden="true"
                     class="min-w-50 absolute left-1/2 -translate-x-1/2 mt-5 p-3 bg-gray-950/90 backdrop-blur-md rounded-3xl shadow-purple-500/30 shadow-2xl"
                   >
                     {#each stateCtx.categories as category}
@@ -414,6 +439,7 @@
                         slug: category.slug,
                       }),
                       closeGoToCategory(),
+                      closeLangSwitcher(),
                       closeMobileMenu()
                     )}
                   >
@@ -443,8 +469,6 @@
       </section>
     {:else if stateCtx.page === stateCtx.pages.category}
       <Category />
-      <!-- {:else if stateCtx.page === stateCtx.pages.loading}
-      <Loader /> -->
     {/if}
 
     <footer>
@@ -528,77 +552,5 @@
   :global(.fancybox__container button),
   :global(.fancybox__container .f-button) {
     cursor: pointer !important;
-  }
-  .custom-select {
-    position: relative;
-    width: 60px;
-    z-index: 999;
-  }
-  .select-trigger {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 6px;
-    background: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  .flag-icon {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-  }
-  .arrow {
-    font-size: 8px;
-    color: #666;
-    transition: transform 0.2s ease;
-  }
-  .arrow.rotated {
-    transform: rotate(180deg);
-  }
-  .select-options {
-    position: absolute;
-    top: 110%;
-    left: 0;
-    width: 100%;
-    background: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    margin: 0;
-    padding: 4px 0;
-    list-style: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
-  .option-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 6px 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  .option-btn:hover {
-    background-color: #f5f5f5;
-  }
-  .option-btn.selected {
-    background-color: #e6f7ff;
-  }
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 99;
   }
 </style>
