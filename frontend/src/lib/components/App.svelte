@@ -13,13 +13,11 @@
   import enFlag from 'svg/en.svg';
   import ruFlag from 'svg/ru.svg';
 
-  const getMain = async (lang = '') => {
+  const getMain = async () => {
     try {
       stateCtx.page = stateCtx.pages.loading;
 
-      const url = lang ? `/?lang=${lang}` : '/';
-
-      const response = await fetch(url, {
+      const response = await fetch(window.location.pathname, {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -165,7 +163,16 @@
   let currentLanguage = $derived(avalibleLanguages.find((l) => l.code === stateCtx.locale) || avalibleLanguages[0]);
 
   const selectLanguage = (code) => {
-    getMain(code);
+    const path = window.location.pathname;
+    const segments = path.split('/').filter(Boolean);
+
+    if (segments.length > 0) {
+      segments[0] = code;
+    } else {
+      segments.push(code);
+    }
+
+    window.location.href = `/${segments.join('/')}/`;
     isLangSwitcherOpen = false;
   };
 </script>

@@ -4,7 +4,7 @@ export const getCategory = async (slug) => {
     try {
       stateCtx.page = stateCtx.pages.loading;
 
-      const response = await fetch(`/${slug}/`, {
+      const response = await fetch(`/${stateCtx.locale}/${slug}/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

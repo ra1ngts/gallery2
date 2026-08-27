@@ -30,7 +30,7 @@ export const stateCtx = $state({
         type: 'success'
     },
     activeSection: 'main',
-    locale: 'en',
+    locale: null,
     translation: {}
 });
 

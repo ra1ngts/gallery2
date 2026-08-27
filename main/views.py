@@ -5,7 +5,7 @@ from django.db.models import Window, F
 from django.db.models.functions import RowNumber
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404, render
-from django.utils.translation import gettext_lazy as _, activate
+from django.utils.translation import gettext_lazy as _, get_language
 from easy_thumbnails.files import get_thumbnailer
 
 import requests
@@ -85,8 +85,7 @@ def ResultEncoder(obj):
 def index(request):
     profile = Profile.get_profile_data()
 
-    lang = request.GET.get('lang', request.LANGUAGE_CODE)
-    activate(lang)
+    lang = get_language()
 
     if request.headers.get('Accept') == 'application/json':
         try:

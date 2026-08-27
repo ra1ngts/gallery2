@@ -1,6 +1,7 @@
 import json
 import os
 
+
 def get_svelte_manifest(path):
     if not os.path.exists(path):
         print(f'Path {path} not found')
