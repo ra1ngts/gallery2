@@ -217,14 +217,17 @@
 
   <div class="fixed top-0 z-100 w-full bg-linear-to-b from-gray-950/90 to-purple-950/60 backdrop-blur-md">
     <div class="container p-4">
-      <nav class="flex items-center justify-between gap-4">
+      <nav class="flex items-center justify-between gap-2">
         <div
           transition:fade={{ duration: 1500 }}
           class="flex items-center gap-2 md:gap-4 font-bold text-2xl bg-linear-to-r from-purple-400 to-purple-700 bg-clip-text text-transparent sm:[&_svg]:h-7 sm:[&_svg]:w-7 [&_svg]:h-6 [&_svg]:w-6 [&_svg]:fill-purple-500 [&_svg]:hover:fill-purple-400 [&_svg]:transition-colors [&_svg]:duration-300"
         >
           {#if stateCtx.profile}
             {#if stateCtx.profile?.name || stateCtx.profile?.lastname}
-              <div class="text-sm sm:text-2xl">{stateCtx.profile.name ?? ''} {stateCtx.profile.lastname ?? ''}</div>
+              <div class="text-base sm:text-2xl md:text-xl lg:text-3xl">
+                {stateCtx.profile.name ?? ''}
+                {stateCtx.profile.lastname ?? ''}
+              </div>
             {/if}
 
             <div class="flex gap-2">
@@ -301,7 +304,7 @@
                 isLangSwitcherOpen = !isLangSwitcherOpen;
               }}
             >
-              <img src={currentLanguage.url} alt={currentLanguage.code} class="w-7 h-7" />
+              <img src={currentLanguage.url} alt={currentLanguage.code} class="w-7 h-7 xl:w-8 xl:h-8" />
             </button>
 
             {#if isLangSwitcherOpen}
@@ -312,13 +315,13 @@
                 {#each avalibleLanguages as lang}
                   <li>
                     <button
-                      class="option-btn h-8 w-8 neon-glow-hover flex shrink-0 items-center justify-center {lang.code ===
+                      class="option-btn w-7 h-7 xl:w-8 xl:h-8 neon-glow-hover flex shrink-0 items-center justify-center {lang.code ===
                       stateCtx.locale
                         ? 'bg-purple-700 border-2 border-purple-700 rounded-full'
                         : 'border-2 border-transparent hover:bg-purple-500 hover:rounded-full'}"
                       onclick={() => selectLanguage(lang.code)}
                     >
-                      <img src={lang.url} alt={lang.code} class="w-7 h-7" />
+                      <img src={lang.url} alt={lang.code} class="w-7 h-7 xl:w-8 xl:h-8" />
                     </button>
                   </li>
                 {/each}
@@ -330,8 +333,8 @@
             {#if section.id !== 'category'}
               <div class="flex gap-2 relative">
                 <button
-                  class="neon-glow-hover text-xl font-semibold {stateCtx.page === stateCtx.pages.main &&
-                  stateCtx.activeSection === section.id
+                  class="neon-glow-hover text-xl md:text-base lg:text-2xl font-semibold {stateCtx.page ===
+                    stateCtx.pages.main && stateCtx.activeSection === section.id
                     ? 'neon-glow-active'
                     : 'text-purple-700 cursor-pointer'}"
                   onclick={() => scrollTo(section.id)}>{section.title}</button
@@ -342,7 +345,8 @@
             {#if section.id === 'category'}
               <div class="relative inline-block" aria-hidden="true">
                 <button
-                  class="neon-glow-hover text-xl font-semibold cursor-pointer {stateCtx.page === section.id
+                  class="neon-glow-hover text-xl md:text-base lg:text-2xl font-semibold cursor-pointer {stateCtx.page ===
+                  section.id
                     ? 'neon-glow-active'
                     : 'text-purple-700'}"
                   onclick={(e) => {
@@ -363,7 +367,7 @@
                     {#each stateCtx.categories as category}
                       <div>
                         <button
-                          class="w-full p-2 rounded-2xl neon-glow-hover hover:bg-purple-950 text-sm sm:text-base md:text-xl font-semibold {stateCtx.categorySlug ===
+                          class="w-full p-2 rounded-2xl neon-glow-hover hover:bg-purple-950 text-xl md:text-base lg:text-2xl font-semibold {stateCtx.categorySlug ===
                           category.slug
                             ? 'neon-glow-active'
                             : 'text-purple-700 cursor-pointer'}"
@@ -470,7 +474,7 @@
               isLangSwitcherOpen = !isLangSwitcherOpen;
             }}
           >
-            <img src={currentLanguage.url} alt={currentLanguage.code} class="w-7 h-7" />
+            <img src={currentLanguage.url} alt={currentLanguage.code} class="w-8 h-8" />
           </button>
 
           {#if isLangSwitcherOpen}
@@ -487,7 +491,7 @@
                       : 'border-2 border-transparent hover:bg-purple-500 hover:rounded-full'}"
                     onclick={() => selectLanguage(lang.code)}
                   >
-                    <img src={lang.url} alt={lang.code} class="w-7 h-7" />
+                    <img src={lang.url} alt={lang.code} class="w-8 h-8" />
                   </button>
                 </li>
               {/each}
