@@ -113,8 +113,10 @@
       <div
         class="w-full p-2 md:p-4 mb-4 bg-purple-950/20 transition-colors duration-300 text-purple-400 rounded-3xl text-xl font-semibold text-center flex items-center justify-between md:block md:text-center gap-4"
       >
-        <button onclick={() => isDesktop()} class="md:hidden text-purple-400 bg-purple-950 rounded-3xl py-1 px-4"
-          >Filters
+        <button
+          onclick={() => isDesktop()}
+          class="md:hidden bg-linear-to-t from-purple-500 to-purple-400 hover:from-purple-400 hover:to-purple-300 text-purple-900 font-bold rounded-2xl transition-colors duration-300 shadow-lg shadow-purple-400/30 py-1 px-4"
+          >{stateCtx.translation?.category.filters}
         </button>
         {stateCtx.categoryTitle}
       </div>
@@ -130,15 +132,15 @@
           ></button>
           <div class="relative z-10 flex flex-col gap-4">
             <div class="grid grid-cols-1 gap-4">
-              <div class="rounded-3xl bg-purple-950/25">
-                <div class="mt-2 text-purple-400 font-bold text-center text-sm lg:text-base">
+              <div class="rounded-3xl bg-purple-950/25 border-t border-t-purple-500/30 border-b border-b-purple-950/60">
+                <div class="mt-2 text-purple-400 font-bold text-center text-base sm:text-lg">
                   {stateCtx.translation?.category.year}
                 </div>
                 <div class="p-2 flex flex-col gap-1">
                   {#each years as year}
                     <button
                       onclick={() => (selectedYear = year)}
-                      class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-2xl text-sm lg:text-base
+                      class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-2xl text-base sm:text-lg
                         {selectedYear === year
                         ? 'text-purple-400 bg-purple-950 rounded-2xl'
                         : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
@@ -149,15 +151,15 @@
                 </div>
               </div>
 
-              <div class="rounded-3xl bg-purple-950/25">
-                <div class="mt-2 text-purple-400 font-bold text-center text-sm lg:text-base">
+              <div class="rounded-3xl bg-purple-950/25 border-t border-t-purple-500/30 border-b border-b-purple-950/60">
+                <div class="mt-2 text-purple-400 font-bold text-center text-base sm:text-lg">
                   {stateCtx.translation?.category.medium}
                 </div>
                 <div class="p-2 flex flex-col gap-1">
                   {#each mediums as medium}
                     <button
                       onclick={() => (selectedMedium = medium)}
-                      class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-2xl text-sm lg:text-base
+                      class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-2xl text-base sm:text-lg
                         {selectedMedium === medium
                         ? 'text-purple-400 bg-purple-950 rounded-2xl'
                         : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
@@ -168,13 +170,11 @@
                 </div>
               </div>
 
-              <div class="rounded-3xl bg-purple-950/25 p-2">
-                <button
-                  onclick={() => closeMobileMenu()}
-                  class="block w-full p-2 text-purple-400 bg-purple-950 rounded-3xl text-lg font-bold text-center"
-                  >Show
-                </button>
-              </div>
+              <button
+                onclick={() => closeMobileMenu()}
+                class="block w-full p-2 text-lg sm:text-xl text-center bg-linear-to-t from-purple-500 to-purple-400 hover:from-purple-400 hover:to-purple-300 text-purple-900 font-bold rounded-2xl transition-colors duration-300 shadow-lg shadow-purple-400/30"
+                >{stateCtx.translation?.category.show}
+              </button>
             </div>
           </div>
         </div>

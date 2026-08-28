@@ -100,7 +100,9 @@
   }
 </script>
 
-<div class="w-full block py-4 mb-4 bg-purple-950/20 text-purple-500 rounded-3xl text-xl font-semibold text-center">
+<div
+  class="w-full block py-4 mb-4 bg-linear-to-t from-purple-950/20 to-purple-900/20 text-purple-500 rounded-3xl text-xl font-semibold text-center border-t border-purple-500/30"
+>
   {stateCtx.translation?.app.sectionTitle.contact}
 </div>
 
@@ -146,7 +148,7 @@
   <button
     onclick={handleSend}
     disabled={stateCtx.isSubmitting}
-    class="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-purple-400 disabled:shadow-none w-full py-3 px-4 bg-purple-500 hover:bg-purple-300 text-purple-900 font-bold rounded-2xl transition-colors duration-300 shadow-lg shadow-purple-400/30"
+    class="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-purple-400 disabled:hover:to-purple-300 disabled:shadow-none w-full py-3 px-4 bg-linear-to-t from-purple-500 to-purple-400 hover:from-purple-400 hover:to-purple-300 text-purple-900 font-bold rounded-2xl transition-colors duration-300 shadow-lg shadow-purple-400/30"
   >
     {stateCtx.isSubmitting ? stateCtx.translation?.contact.post.sending : stateCtx.translation?.contact.post.submit}
   </button>

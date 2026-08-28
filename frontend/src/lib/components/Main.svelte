@@ -121,7 +121,7 @@
 
 <div
   transition:fade={{ duration: 500 }}
-  class="mb-4 overflow-hidden rounded-3xl transition-all duration-300 card-background backdrop-blur-md py-0 px-4 lg:px-8 opacity-90 hover:opacity-100 lg:hover:shadow-lg lg:hover:shadow-purple-500/20"
+  class="mb-4 overflow-hidden rounded-3xl transition-all duration-300 card-background backdrop-blur-md py-0 px-4 lg:px-8 opacity-90 hover:opacity-100 lg:hover:shadow-lg lg:hover:shadow-purple-500/20 border-t border-purple-500/30 lg:border-transparent lg:hover:border-purple-500/30"
 >
   <div
     class="p-2 sm:p-4 items-center text-center font-semibold"
@@ -145,7 +145,7 @@
     </a>
   </div>
 
-  <div class="p-2 sm:p-4 items-center text-center">
+  <div class="p-2 sm:p-4 items-center text-center text-xs sm:text-base">
     {stateCtx.featuredWork.description}
   </div>
 </div>
@@ -157,7 +157,7 @@
       {#if categoryArtworks.length > 0}
         <button
           onclick={() => routeChoice({ page: stateCtx.pages.category, slug: categoryArtworks[0].category.slug })}
-          class="w-full block cursor-pointer py-4 mb-4 bg-purple-950/20 text-purple-500 neon-glow-hover rounded-3xl text-xl font-semibold text-center"
+          class="w-full block cursor-pointer py-4 mb-4 bg-linear-to-t from-purple-950/20 to-purple-900/20 text-purple-500 neon-glow-hover rounded-3xl text-xl font-semibold text-center border-t border-purple-500/30"
         >
           {categoryArtworks[0].category.title}
         </button>
@@ -169,7 +169,7 @@
             <div class="swiper-slide">
               <div
                 class="h-full flex flex-col mb-4 p-4 lg:p-8 rounded-3xl transition-all duration-300 card-background backdrop-blur-md shadow-lg
-                lg:hover:shadow-lg lg:hover:shadow-purple-500/20 lg:backdrop-blur-md"
+                lg:hover:shadow-lg lg:hover:shadow-purple-500/20 lg:backdrop-blur-md border-t border-purple-500/30 lg:border-transparent lg:hover:border-purple-500/30"
               >
                 <div class="h-80 overflow-hidden rounded-2xl">
                   <a
@@ -195,7 +195,7 @@
               <button
                 onclick={() => routeChoice({ page: stateCtx.pages.category, slug: categoryArtworks[0].category.slug })}
                 class="group cursor-pointer w-full h-full flex flex-col mb-4 p-4 lg:p-8 rounded-3xl transition-all duration-300 card-background backdrop-blur-md shadow-lg
-                lg:hover:shadow-lg lg:hover:shadow-purple-500/20 lg:backdrop-blur-md"
+                lg:hover:shadow-lg lg:hover:shadow-purple-500/20 lg:backdrop-blur-md border-t border-purple-500/30 lg:border-transparent lg:hover:border-purple-500/30"
               >
                 <div
                   class="h-80 flex items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-purple-500 group-hover:border-purple-400 transition-colors"
