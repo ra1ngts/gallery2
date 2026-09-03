@@ -29,7 +29,7 @@ RUN SECRET_KEY=build-only-secret \
     DB_PORT=5432 \
     python manage.py collectstatic --noinput
 EXPOSE 8000
-CMD ["gunicorn", "gallery2.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py migrate && gunicorn gallery2.wsgi:application --bind 0.0.0.0:8000"]
 LABEL org.opencontainers.image.authors="david.khurts@gmail.com" \
       org.opencontainers.image.version="0.1" \
       org.opencontainers.image.description="gallery2"
