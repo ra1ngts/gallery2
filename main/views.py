@@ -158,7 +158,7 @@ def index(request):
                 'locale': lang,
                 'profile': ResultEncoder(profile),
                 'artworks': [ResultEncoder(artwork) for artwork in artworks],
-                'featured_work': ResultEncoder(featured_work),
+                'featured_work': ResultEncoder(featured_work) or {},
                 'categories': list(Category.objects.values('slug', 'title')),
                 'form': {
                     field.name: {

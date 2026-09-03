@@ -119,36 +119,38 @@
   let isLoaded = $state(false);
 </script>
 
-<div
-  transition:fade={{ duration: 500 }}
-  class="mb-4 overflow-hidden rounded-3xl transition-all duration-300 card-background backdrop-blur-md py-0 px-4 lg:px-8 opacity-90 hover:opacity-100 lg:hover:shadow-lg lg:hover:shadow-purple-500/20 border-t border-purple-500/30 lg:border-transparent lg:hover:border-purple-500/30"
->
+{#if stateCtx.featuredWork.title}
   <div
-    class="p-2 sm:p-4 items-center text-center font-semibold"
-    class:opacity-0={!isLoaded}
-    class:opacity-100={isLoaded}
-    onload={() => (isLoaded = true)}
+    transition:fade={{ duration: 500 }}
+    class="mb-4 overflow-hidden rounded-3xl transition-all duration-300 card-background backdrop-blur-md py-0 px-4 lg:px-8 opacity-90 hover:opacity-100 lg:hover:shadow-lg lg:hover:shadow-purple-500/20 border-t border-purple-500/30 lg:border-transparent lg:hover:border-purple-500/30"
   >
-    {stateCtx.featuredWork.title} ({stateCtx.featuredWork.year})
-  </div>
+    <div
+      class="p-2 sm:p-4 items-center text-center font-semibold"
+      class:opacity-0={!isLoaded}
+      class:opacity-100={isLoaded}
+      onload={() => (isLoaded = true)}
+    >
+      {stateCtx.featuredWork.title} ({stateCtx.featuredWork.year})
+    </div>
 
-  <div class="h-100 sm:h-170">
-    <a href={stateCtx.featuredWork.image} data-fancybox="featured-{stateCtx.featuredWork.id}">
-      <img
-        src={stateCtx.featuredWork.image}
-        alt={stateCtx.featuredWork.title}
-        class="w-full h-full object-cover rounded-2xl cursor-pointer"
-        class:opacity-0={!isLoaded}
-        class:opacity-100={isLoaded}
-        onload={() => (isLoaded = true)}
-      />
-    </a>
-  </div>
+    <div class="h-100 sm:h-170">
+      <a href={stateCtx.featuredWork.image} data-fancybox="featured-{stateCtx.featuredWork.id}">
+        <img
+          src={stateCtx.featuredWork.image}
+          alt={stateCtx.featuredWork.title}
+          class="w-full h-full object-cover rounded-2xl cursor-pointer"
+          class:opacity-0={!isLoaded}
+          class:opacity-100={isLoaded}
+          onload={() => (isLoaded = true)}
+        />
+      </a>
+    </div>
 
-  <div class="p-2 sm:p-4 items-center text-center text-xs sm:text-base">
-    {stateCtx.featuredWork.description}
+    <div class="p-2 sm:p-4 items-center text-center text-xs sm:text-base">
+      {stateCtx.featuredWork.description}
+    </div>
   </div>
-</div>
+{/if}
 
 {#if availableCategories.length > 0}
   {#each availableCategories as catId}
