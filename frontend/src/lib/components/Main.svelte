@@ -147,7 +147,7 @@
     </div>
 
     <div class="p-2 sm:p-4 items-center text-center text-xs sm:text-base">
-      {@html stateCtx.featuredWork.description}
+      {@html stateCtx.featuredWork.description}!
     </div>
   </div>
 {/if}
