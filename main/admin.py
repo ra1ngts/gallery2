@@ -25,15 +25,23 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
 
     list_display = (
         'id',
+        'is_published',
         'title',
-        'year',
         'get_image',
+        'year',
         'category',
         'medium'
     )
     list_display_links = (
         'id',
         'title'
+    )
+    list_filter = (
+        'is_published',
+        'created_at',
+        'year',
+        'category',
+        'medium'
     )
 
     def get_image(self, obj):
