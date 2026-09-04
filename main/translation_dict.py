@@ -13,6 +13,7 @@ def getTranslateDict():
             'copyright': _('Все права защищены. Создано отцом с')
         },
         'main': {
+            'view_all': _('Все работы'),
             'warning': _('Не найдено ни одной работы')
         },
         'category': {

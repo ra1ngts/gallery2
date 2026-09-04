@@ -205,7 +205,7 @@
                   <span
                     class="text-purple-500 group-hover:text-purple-400 font-bold text-xl uppercase tracking-wider transition-all duration-300 ease-in-out"
                   >
-                    View all
+                    {stateCtx.translation?.main.view_all}
                   </span>
                 </div>
               </button>

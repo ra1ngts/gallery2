@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-28 14:12+0300\n"
+"POT-Creation-Date: 2026-09-04 17:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,32 +17,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\gallery2\settings.py:121
+#: .\gallery2\settings.py:143
 msgid "Русский"
 msgstr "Russian"
 
-#: .\gallery2\settings.py:122
+#: .\gallery2\settings.py:144
 msgid "Английский"
 msgstr "English"
 
-#: .\main\admin.py:48 .\main\models.py:72 .\main\models.py:161
-#: .\main\models.py:259
+#: .\main\admin.py:56 .\main\models.py:72 .\main\models.py:159
+#: .\main\models.py:257
 msgid "Изображение"
 msgstr "Image"
 
-#: .\main\admin.py:70
+#: .\main\admin.py:78
 msgid "Информация о работе"
 msgstr "Artwork information"
 
-#: .\main\admin.py:71
+#: .\main\admin.py:79
 msgid "Изображения"
 msgstr "Images"
 
-#: .\main\admin.py:171
+#: .\main\admin.py:179
 msgid "Личные данные"
 msgstr "Personal data"
 
-#: .\main\admin.py:172
+#: .\main\admin.py:180
 msgid "Контактные данные"
 msgstr "Contact details"
 
@@ -50,7 +50,7 @@ msgstr "Contact details"
 msgid "Главная"
 msgstr "Home"
 
-#: .\main\forms.py:7 .\main\models.py:147
+#: .\main\forms.py:7 .\main\models.py:145
 msgid "Имя"
 msgstr "First name"
 
@@ -70,7 +70,7 @@ msgstr "Message"
 msgid "Ваше сообщение..."
 msgstr "Your message..."
 
-#: .\main\forms.py:21 .\main\models.py:183
+#: .\main\forms.py:21 .\main\models.py:181
 msgid "Электронная почта"
 msgstr "Email"
 
@@ -102,7 +102,7 @@ msgstr ""
 msgid "Порядок"
 msgstr "Sort order"
 
-#: .\main\models.py:53 .\main\models.py:105 .\main\models.py:123
+#: .\main\models.py:53 .\main\models.py:103 .\main\models.py:121
 msgid "Название"
 msgstr "Title"
 
@@ -122,117 +122,117 @@ msgstr "Enter the year of creation"
 msgid "Год создания работы"
 msgstr "Year of creation"
 
-#: .\main\models.py:71 .\main\models.py:160
+#: .\main\models.py:71 .\main\models.py:158
 msgid "Загрузите изображение"
 msgstr "Upload image"
 
-#: .\main\models.py:78 .\main\models.py:115 .\main\translation_dict.py:9
+#: .\main\models.py:78 .\main\models.py:113 .\main\translation_dict.py:9
 msgid "Категория"
 msgstr "Category"
 
-#: .\main\models.py:86 .\main\models.py:133
+#: .\main\models.py:84 .\main\models.py:131
 msgid "Техника исполнения"
 msgstr "Medium"
 
-#: .\main\models.py:89
+#: .\main\models.py:87
 msgid "Особенная работа"
 msgstr "Featured artwork"
 
-#: .\main\models.py:97
+#: .\main\models.py:95
 msgid "Работа"
 msgstr "Artwork"
 
-#: .\main\models.py:98
+#: .\main\models.py:96
 msgid "Работы"
 msgstr "Artworks"
 
-#: .\main\models.py:116
+#: .\main\models.py:114
 msgid "Категории"
 msgstr "Categories"
 
-#: .\main\models.py:134
+#: .\main\models.py:132
 msgid "Техники исполнения"
 msgstr "Mediums"
 
-#: .\main\models.py:139
+#: .\main\models.py:137
 msgid ""
 "Номер телефона должен быть в формате: \"+79991234567\". От 9 до 15 цифр."
 msgstr ""
 "Phone number must be in the format: \"+79991234567\". From 9 to 15 digits."
 
-#: .\main\models.py:146
+#: .\main\models.py:144
 msgid "Введите имя"
 msgstr "Enter first name"
 
-#: .\main\models.py:153
+#: .\main\models.py:151
 msgid "Введите фамилию"
 msgstr "Enter last name"
 
-#: .\main\models.py:154
+#: .\main\models.py:152
 msgid "Фамилия"
 msgstr "Last name"
 
-#: .\main\models.py:166
+#: .\main\models.py:164
 msgid "Введите информацию о себе"
 msgstr "Enter information about yourself"
 
-#: .\main\models.py:167
+#: .\main\models.py:165
 msgid "Описание"
 msgstr "Description"
 
-#: .\main\models.py:174
+#: .\main\models.py:172
 msgid "Введите номер телефона"
 msgstr "Enter phone number"
 
-#: .\main\models.py:175
+#: .\main\models.py:173
 msgid "Номер телефона"
 msgstr "Phone number"
 
-#: .\main\models.py:182
+#: .\main\models.py:180
 msgid "Введите адрес вашей электронной почты"
 msgstr "Enter your email address"
 
-#: .\main\models.py:189
+#: .\main\models.py:187
 msgid "Введите ссылку на профиль WhatsApp"
 msgstr "Enter WhatsApp profile link"
 
-#: .\main\models.py:190
+#: .\main\models.py:188
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: .\main\models.py:196
+#: .\main\models.py:194
 msgid "Введите ссылку на профиль Telegram"
 msgstr "Enter Telegram profile link"
 
-#: .\main\models.py:197
+#: .\main\models.py:195
 msgid "Telegram"
 msgstr "Telegram"
 
-#: .\main\models.py:203
+#: .\main\models.py:201
 msgid "Введите ссылку на профиль LinkedIn"
 msgstr "Enter LinkedIn profile link"
 
-#: .\main\models.py:204
+#: .\main\models.py:202
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: .\main\models.py:210
+#: .\main\models.py:208
 msgid "Введите ссылку на резюме"
 msgstr "Enter CV link"
 
-#: .\main\models.py:211
+#: .\main\models.py:209
 msgid "Ссылка на резюме"
 msgstr "CV link"
 
-#: .\main\models.py:245 .\main\models.py:246
+#: .\main\models.py:243 .\main\models.py:244
 msgid "Личная информация"
 msgstr "Personal information"
 
-#: .\main\models.py:267
+#: .\main\models.py:265
 msgid "Художественная работа"
 msgstr "Artwork"
 
-#: .\main\models.py:268
+#: .\main\models.py:266
 msgid "Художественные работы"
 msgstr "Artworks"
 
@@ -249,62 +249,66 @@ msgid "Все права защищены. Создано отцом с"
 msgstr "All rights reserved. Created by father with"
 
 #: .\main\translation_dict.py:16
+msgid "Все работы"
+msgstr "View all"
+
+#: .\main\translation_dict.py:17
 msgid "Не найдено ни одной работы"
 msgstr "No artworks found"
 
-#: .\main\translation_dict.py:19
+#: .\main\translation_dict.py:20
 msgid "Все годы"
 msgstr "All years"
 
-#: .\main\translation_dict.py:20
+#: .\main\translation_dict.py:21
 msgid "Все техники"
 msgstr "All mediums"
 
-#: .\main\translation_dict.py:21
+#: .\main\translation_dict.py:22
 msgid "Год"
 msgstr "Year"
 
-#: .\main\translation_dict.py:22
+#: .\main\translation_dict.py:23
 msgid "Техника"
 msgstr "Medium"
 
-#: .\main\translation_dict.py:23
+#: .\main\translation_dict.py:24
 msgid "В категории не найдено ни одной работы"
 msgstr "No artworks found in this category"
 
-#: .\main\translation_dict.py:24
+#: .\main\translation_dict.py:25
 msgid "Фильтры"
 msgstr "Filters"
 
-#: .\main\translation_dict.py:25
+#: .\main\translation_dict.py:26
 msgid "Показать"
 msgstr "Show"
 
-#: .\main\translation_dict.py:29
+#: .\main\translation_dict.py:30
 msgid "Введите ваше имя"
 msgstr "Please enter your name"
 
-#: .\main\translation_dict.py:30
+#: .\main\translation_dict.py:31
 msgid "Введите корректный email"
 msgstr "Please enter a valid email"
 
-#: .\main\translation_dict.py:31
+#: .\main\translation_dict.py:32
 msgid "Укажите тему"
 msgstr "Please specify a subject"
 
-#: .\main\translation_dict.py:32
+#: .\main\translation_dict.py:33
 msgid "Введите текст сообщения"
 msgstr "Please enter your message"
 
-#: .\main\translation_dict.py:35
+#: .\main\translation_dict.py:36
 msgid "Сообщение успешно отправлено!"
 msgstr "Message sent successfully!"
 
-#: .\main\translation_dict.py:36
+#: .\main\translation_dict.py:37
 msgid "Отправляем..."
 msgstr "Sending..."
 
-#: .\main\translation_dict.py:37
+#: .\main\translation_dict.py:38
 msgid "Отправить"
 msgstr "Send"
 
