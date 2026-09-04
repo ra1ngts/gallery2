@@ -43,6 +43,19 @@
   ]);
   $inspect('mediums', mediums);
 
+  const isYearsFiltersShown = $derived(
+    years.filter((item) => item !== stateCtx.translation?.category.all_years).length,
+  );
+  $inspect('isYearsFiltersShown', isYearsFiltersShown);
+
+  const isMediumsFiltersShown = $derived(
+    mediums.filter((item) => item !== stateCtx.translation?.category.all_mediums).length,
+  );
+  $inspect('isMediumsFiltersShown', isMediumsFiltersShown);
+
+  const isFiltersShown = $derived(isYearsFiltersShown > 1 || isMediumsFiltersShown > 1);
+  $inspect('isFiltersShown', isFiltersShown);
+
   const filteredArtworks = $derived(
     stateCtx.artworksCategory.filter((artwork) => {
       const matchYear = selectedYear === defaultYear || artwork.year === selectedYear;
@@ -65,59 +78,65 @@
 
 {#if filteredArtworks.length > 0}
   <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-    <div
-      class="hidden md:block md:col-span-1 h-fit p-2 lg:p-4 rounded-3xl transition-all duration-300 bg-purple-950/20 hover:bg-purple-950/25"
-    >
-      <div class="grid grid-cols-1 gap-4">
-        <div class="rounded-3xl bg-purple-950/25">
-          <div class="mt-2 text-purple-400 font-bold text-center text-sm lg:text-base">
-            {stateCtx.translation?.category.year}
-          </div>
-          <div class="p-2 flex flex-col gap-1">
-            {#each years as year}
-              <button
-                onclick={() => (selectedYear = year)}
-                class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-2xl text-sm lg:text-base
+    {#if isFiltersShown}
+      <div
+        class="hidden md:block md:col-span-1 h-fit p-2 lg:p-4 rounded-3xl transition-all duration-300 bg-purple-950/20 hover:bg-purple-950/25"
+      >
+        <div class="grid grid-cols-1 gap-4">
+          <div class="rounded-3xl bg-purple-950/25">
+            <div class="mt-2 text-purple-400 font-bold text-center text-sm lg:text-base">
+              {stateCtx.translation?.category.year}
+            </div>
+            <div class="p-2 flex flex-col gap-1">
+              {#each years as year}
+                <button
+                  onclick={() => (selectedYear = year)}
+                  class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-2xl text-sm lg:text-base
                   {selectedYear === year
-                  ? 'text-purple-400 bg-purple-950 rounded-2xl'
-                  : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
-              >
-                {year}
-              </button>
-            {/each}
+                    ? 'text-purple-400 bg-purple-950 rounded-2xl'
+                    : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
+                >
+                  {year}
+                </button>
+              {/each}
+            </div>
           </div>
-        </div>
 
-        <div class="rounded-3xl bg-purple-950/25">
-          <div class="mt-2 text-purple-400 font-bold text-center text-sm lg:text-base">
-            {stateCtx.translation?.category.medium}
-          </div>
-          <div class="p-2 flex flex-col gap-1">
-            {#each mediums as medium}
-              <button
-                onclick={() => (selectedMedium = medium)}
-                class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-2xl text-sm lg:text-base
+          <div class="rounded-3xl bg-purple-950/25">
+            <div class="mt-2 text-purple-400 font-bold text-center text-sm lg:text-base">
+              {stateCtx.translation?.category.medium}
+            </div>
+            <div class="p-2 flex flex-col gap-1">
+              {#each mediums as medium}
+                <button
+                  onclick={() => (selectedMedium = medium)}
+                  class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-2xl text-sm lg:text-base
                   {selectedMedium === medium
-                  ? 'text-purple-400 bg-purple-950 rounded-2xl'
-                  : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
-              >
-                {medium}
-              </button>
-            {/each}
+                    ? 'text-purple-400 bg-purple-950 rounded-2xl'
+                    : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
+                >
+                  {medium}
+                </button>
+              {/each}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    {/if}
 
-    <div class="col-span-1 md:col-span-4 w-full">
+    <div class="col-span-1 {isFiltersShown ? 'md:col-span-4' : 'md:col-span-5'} w-full">
       <div
-        class="w-full p-2 md:p-4 mb-4 bg-purple-950/20 transition-colors duration-300 text-purple-400 rounded-3xl text-xl font-semibold text-center flex items-center justify-between md:block md:text-center gap-4"
+        class="w-full p-2 md:p-4 mb-4 bg-purple-950/20 transition-colors duration-300 text-purple-400 rounded-3xl text-xl font-semibold text-center flex items-center {isFiltersShown
+          ? 'justify-between'
+          : 'justify-center'} md:block md:text-center gap-4"
       >
-        <button
-          onclick={() => isDesktop()}
-          class="md:hidden bg-linear-to-t from-purple-500 to-purple-400 hover:from-purple-400 hover:to-purple-300 text-purple-900 font-bold rounded-2xl transition-colors duration-300 shadow-lg shadow-purple-400/30 py-1 px-4"
-          >{stateCtx.translation?.category.filters}
-        </button>
+        {#if isFiltersShown}
+          <button
+            onclick={() => isDesktop()}
+            class="md:hidden bg-linear-to-t from-purple-500 to-purple-400 hover:from-purple-400 hover:to-purple-300 text-purple-900 font-bold rounded-2xl transition-colors duration-300 shadow-lg shadow-purple-400/30 py-1 px-4"
+            >{stateCtx.translation?.category.filters}
+          </button>
+        {/if}
         {stateCtx.categoryTitle}
       </div>
 
