@@ -159,7 +159,7 @@ def index(request):
                 'profile': ResultEncoder(profile),
                 'artworks': [ResultEncoder(artwork) for artwork in artworks],
                 'featured_work': ResultEncoder(featured_work) or {},
-                'categories': list(Category.objects.values('slug', 'title')),
+                'categories': list(Category.objects.filter(artworks_categories__is_published=True).values('slug', 'title').distinct()),
                 'form': {
                     field.name: {
                         'label': str(field.label),
