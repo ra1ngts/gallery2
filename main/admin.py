@@ -26,6 +26,7 @@ class ArtworkAdmin(TranslationAdmin, TabbedModelAdmin):
     list_display = (
         'id',
         'is_published',
+        'is_featured',
         'title',
         'get_image',
         'year',
