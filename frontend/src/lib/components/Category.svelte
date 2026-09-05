@@ -155,43 +155,51 @@
           ></button>
           <div class="relative z-10 flex flex-col gap-4">
             <div class="grid grid-cols-1 gap-4">
-              <div class="rounded-3xl bg-purple-950/25 border-t border-t-purple-500/30 border-b border-b-purple-950/60">
-                <div class="mt-2 text-purple-400 font-bold text-center text-base sm:text-lg">
-                  {stateCtx.translation?.category.year}
-                </div>
-                <div class="p-2 flex flex-col gap-1">
-                  {#each years as year}
-                    <button
-                      onclick={() => (selectedYear = year)}
-                      class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-2xl text-base sm:text-lg
+              {#if isYearsFiltersShown > 1}
+                <div
+                  class="rounded-3xl bg-purple-950/25 border-t border-t-purple-500/30 border-b border-b-purple-950/60"
+                >
+                  <div class="mt-2 text-purple-400 font-bold text-center text-base sm:text-lg">
+                    {stateCtx.translation?.category.year}
+                  </div>
+                  <div class="p-2 flex flex-col gap-1">
+                    {#each years as year}
+                      <button
+                        onclick={() => (selectedYear = year)}
+                        class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-2xl text-base sm:text-lg
                         {selectedYear === year
-                        ? 'text-purple-400 bg-purple-950 rounded-2xl'
-                        : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
-                    >
-                      {year}
-                    </button>
-                  {/each}
+                          ? 'text-purple-400 bg-purple-950 rounded-2xl'
+                          : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
+                      >
+                        {year}
+                      </button>
+                    {/each}
+                  </div>
                 </div>
-              </div>
+              {/if}
 
-              <div class="rounded-3xl bg-purple-950/25 border-t border-t-purple-500/30 border-b border-b-purple-950/60">
-                <div class="mt-2 text-purple-400 font-bold text-center text-base sm:text-lg">
-                  {stateCtx.translation?.category.medium}
-                </div>
-                <div class="p-2 flex flex-col gap-1">
-                  {#each mediums as medium}
-                    <button
-                      onclick={() => (selectedMedium = medium)}
-                      class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-2xl text-base sm:text-lg
+              {#if isMediumsFiltersShown > 1}
+                <div
+                  class="rounded-3xl bg-purple-950/25 border-t border-t-purple-500/30 border-b border-b-purple-950/60"
+                >
+                  <div class="mt-2 text-purple-400 font-bold text-center text-base sm:text-lg">
+                    {stateCtx.translation?.category.medium}
+                  </div>
+                  <div class="p-2 flex flex-col gap-1">
+                    {#each mediums as medium}
+                      <button
+                        onclick={() => (selectedMedium = medium)}
+                        class="block w-full p-2 transition-all duration-300 hover:p-2 hover:rounded-2xl text-base sm:text-lg
                         {selectedMedium === medium
-                        ? 'text-purple-400 bg-purple-950 rounded-2xl'
-                        : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
-                    >
-                      {medium}
-                    </button>
-                  {/each}
+                          ? 'text-purple-400 bg-purple-950 rounded-2xl'
+                          : 'cursor-pointer text-purple-500 hover:text-purple-400 hover:bg-purple-950'}"
+                      >
+                        {medium}
+                      </button>
+                    {/each}
+                  </div>
                 </div>
-              </div>
+              {/if}
 
               <button
                 onclick={() => closeMobileMenu()}
