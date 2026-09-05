@@ -224,10 +224,10 @@
         >
           {#if stateCtx.profile}
             {#if stateCtx.profile?.name || stateCtx.profile?.lastname}
-              <div class="text-base sm:text-2xl md:text-xl lg:text-3xl">
+              <button class="text-base sm:text-2xl md:text-xl lg:text-3xl" onclick={() => scrollTo(menuSections[0].id)}>
                 {stateCtx.profile.name ?? ''}
                 {stateCtx.profile.lastname ?? ''}
-              </div>
+              </button>
             {/if}
 
             <div class="flex gap-2">
