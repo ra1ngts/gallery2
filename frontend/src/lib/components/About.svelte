@@ -8,7 +8,7 @@
   {stateCtx.translation?.app.sectionTitle.about}
 </div>
 
-<div class="grid grid-cols-3 gap-4">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
   <div class="h-full flex justify-center">
     <img
       src={stateCtx.profile.image}
