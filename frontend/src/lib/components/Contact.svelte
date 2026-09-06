@@ -76,15 +76,18 @@
         showToast(stateCtx.translation.contact?.post.success, 'success');
         console.log('Message sent successfully!');
       } else {
-        const cleanedErrors = {};
 
-        for (const [field, array] of Object.entries(result.errors)) {
-          console.log('field, array', field, array);
+        if (result.errors) {
+          const cleanedErrors = {};
 
-          cleanedErrors[field] = array[0]?.message;
+          for (const [field, array] of Object.entries(result.errors)) {
+            console.log('field, array', field, array);
+
+            cleanedErrors[field] = array[0]?.message;
+          }
+
+          stateCtx.formErrors = cleanedErrors;
         }
-
-        stateCtx.formErrors = cleanedErrors;
 
         const errorMessage = result.message;
         showToast(errorMessage, 'error');
