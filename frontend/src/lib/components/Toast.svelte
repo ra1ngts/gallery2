@@ -3,7 +3,7 @@
   import { fade, fly } from 'svelte/transition';
 
   const toastStyles = {
-    success: 'text-cyan-800 bg-cyan-400',
+    success: 'text-purple-800 bg-purple-400',
     error: 'text-red-800 bg-red-400',
   };
 </script>
