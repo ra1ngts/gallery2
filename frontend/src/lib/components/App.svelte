@@ -519,6 +519,8 @@
       <Category />
     {/if}
 
+    <Toast />
+
     <footer>
       <div
         class="flex flex-col sm:flex-row py-8 items-center justify-center text-purple-950 gap-2 transition-colors duration-300 group"
