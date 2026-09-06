@@ -5,18 +5,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="color-scheme" content="only light">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="font-src 'self' data:;">
 
     <title>{{ title }}</title>
 
-    <!-- <script>
+    <script>
         window.RECAPTCHA_SITE_KEY = "{{ site_key }}";
     </script>
-    <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}" async defer></script> -->
+    <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}" async defer></script>
 
     <link rel="icon" type="image/svg+xml" href="{% static 'svelte/assets/vite.svg' %}"/>
+
     {% for css in manifest_css %}
-        <link rel="stylesheet" crossorigin href="/static/svelte/assets/{{ css }}">
+        <link rel="preload" href="/static/svelte/assets/{{ css }}" as="style">
+    {% endfor %}
+
+    {% for css in manifest_css %}
+        <link rel="stylesheet" crossorigin href="/static/svelte/assets/{{ css }}" media="print" onload="this.media='all'">
     {% endfor %}
 </head>
 
