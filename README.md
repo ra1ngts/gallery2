@@ -1,8 +1,8 @@
-### :art: "Artist's Portfolio 2.0"
+# :art: "Artist's Portfolio 2.0"
 
 ---
 
-#### About project :
+### About project :
 - __Artist's Portfolio 2.0__ — a redesigned and rebuilt version of an artist's personal portfolio website.
 - The project features a modern frontend, improved UI/UX, and enhanced functionality for browsing and filtering artworks.
 - The website provides a responsive multilingual interface for presenting and exploring the artist's works.
